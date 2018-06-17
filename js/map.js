@@ -57,14 +57,14 @@ var createObject = function () {
 };
 
 // соответствие типов жилья
-var houseTypes = function (type) {
+var ObjectTypes = function (type) {
   var houseTypes = {
     'flat': 'Квартира',
     'bungalo': 'Бунгало',
     'house': 'Дом',
     'palace': 'Дворец'
   };
-  return houseTypes[type];
+  return ObjectTypes[type];
 };
 
 // удаление дочерних элементов
@@ -97,7 +97,7 @@ var createCardElement = function (object) {
   cardElement.querySelector('.popup__title').textContent = object.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = object.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = object.offer.price + '₽/ночь';
-  cardElement.querySelector('.popup__type').textContent = houseTypes(object.offer.type);
+  cardElement.querySelector('.popup__type').textContent = ObjectTypes(object.offer.type);
   cardElement.querySelector('.popup__text--capacity').textContent = object.offer.rooms + ' комнаты для ' + object.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + object.offer.checkin + ', выезд до ' + object.offer.checkout;
   // список удобств
