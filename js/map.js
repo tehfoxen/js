@@ -1,70 +1,93 @@
 'use strict';
-var numberOfObjects = 8;
-var TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
-var TYPES = ['palace', 'flat', 'house', 'bungalo'];
-var TIMES = ['12:00', '13:00', '14:00'];
-var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var NUMBER_OF_OBJECTS = 8;
+var TITLES = [
+  'Большая уютная квартира',
+  'Маленькая неуютная квартира',
+  'Огромный прекрасный дворец',
+  'Маленький ужасный дворец',
+  'Красивый гостевой домик',
+  'Некрасивый негостеприимный домик',
+  'Уютное бунгало далеко от моря',
+  'Неуютное бунгало по колено в воде'
+];
+var TYPES = [
+  'palace',
+  'flat',
+  'house',
+  'bungalo'
+];
+var TIMES = [
+  '12:00',
+  '13:00',
+  '14:00'];
+var FEATURES = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner'
+];
+var PHOTOS = [
+  'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+];
+var TypeLabel = {
+  FLAT: 'Квартира',
+  BUNGALO: 'Бунгало',
+  HOUSE: 'Дом',
+  PALACE: 'Дворец'
+}
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+
+var template = document.querySelector('template').content;
 // случайная сортировка массива
-var sortArray = function (arrEnd, arrStart) {
-  arrEnd = arrStart.slice(0);
-  var createRandom = function () {
+var shuffleArray = function (arr) {
+  var arrCopy = arr.slice(0);
+  return arrCopy.sort(function() {
     return Math.random() - 0.5;
-  };
-  return arrEnd.sort(createRandom);
+  });
 };
 // случайный элемент массива
-var getRandomItem = function (arr) {
+var getRandomArrayItem = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 // случайное число
-var getRandomNumber = function (min, max) {
+var getRandomIntegerFromInterval = function (min, max) {
   return Math.floor(Math.random() * ((max + 1) - min) + min);
 };
 // создание объявлений
-var createObject = function () {
-  var arrObj = [];
-  var randomFeatures = [];
-  var randomPhotos = [];
-  for (var i = 0; i < numberOfObjects; i++) {
-    randomFeatures[i] = sortArray(randomFeatures[i], FEATURES);
-    randomFeatures[i].length = getRandomNumber(1, randomFeatures[i].length);
-    arrObj[i] = {};
-    arrObj[i].author = {
-      avatar: 'img/avatars/user' + '0' + (i + 1) + '.png'
-    };
-    arrObj[i].location = {
-      x: getRandomNumber(300, 900),
-      y: getRandomNumber(130, 630)
-    };
-    arrObj[i].offer = {
-      title: TITLES[i],
-      address: arrObj[i].location.x + ', ' + arrObj[i].location.y,
-      price: getRandomNumber(1000, 1000000),
-      type: getRandomItem(TYPES),
-      rooms: getRandomNumber(1, 5),
-      guests: getRandomNumber(2, 15),
-      checkin: getRandomItem(TIMES),
-      checkout: getRandomItem(TIMES),
-      features: randomFeatures[i],
-      description: '',
-      photos: sortArray(randomPhotos[i], PHOTOS)
-    };
+var createDataArray = function () {
+  var arr = [];
+  for (var i = 0; i < NUMBER_OF_OBJECTS; i++) {
+    var x = getRandomIntegerFromInterval(300, 900);
+    var y = getRandomIntegerFromInterval(130, 630);
+    arr.push({
+      author: {
+        avatar: 'img/avatars/user' + ((i + 1) < 10 ? '0' : '') + (i + 1) + '.png'
+      },
+      offer: {
+        title: TITLES[i],
+        address: x + ', ' + y,
+        price: getRandomIntegerFromInterval(1000, 1000000),
+        type: getRandomArrayItem(TYPES),
+        rooms: getRandomIntegerFromInterval(1, 5),
+        guests: getRandomIntegerFromInterval(2, 15),
+        checkin: getRandomArrayItem(TIMES),
+        checkout: getRandomArrayItem(TIMES),
+        features: shuffleArray(FEATURES), // По условию задачи нужно не только перемешать, но ещё обрезать до случайной длины, так что у тебя не хватает функции sliceArrayRandom
+        description: '',
+        photos: shuffleArray(PHOTOS)
+      },
+      location: {
+        x: x,
+        y: y
+      }
+    });
   }
-  return arrObj;
-};
-
-// соответствие типов жилья
-var ObjectTypes = function (type) {
-  var houseTypes = {
-    'flat': 'Квартира',
-    'bungalo': 'Бунгало',
-    'house': 'Дом',
-    'palace': 'Дворец'
-  };
-  return ObjectTypes[type];
+  return arr;
 };
 
 // удаление дочерних элементов
@@ -74,17 +97,18 @@ var removeChildren = function (parent, childrens) {
   }
 };
 var map = document.querySelector('.map');
-var estateObjects = createObject();
-var fragment = document.createDocumentFragment();
+var mockData = createDataArray();
+
 
 // создание пинов
 var createPin = function (number) {
-  var pinTemplate = document.querySelector('template').content.querySelector('.map__pin');
+  var fragment = document.createDocumentFragment();
+  var pinTemplate = template.querySelector('.map__pin');
   for (var i = 0; i < number; i++) {
     var pinElement = pinTemplate.cloneNode(true);
-    pinElement.style = 'left: ' + (estateObjects[i].location.x - PIN_WIDTH / 2) + 'px; top: ' + (estateObjects[i].location.y - PIN_HEIGHT) + 'px';
-    pinElement.querySelector('img').src = estateObjects[i].author.avatar;
-    pinElement.querySelector('img').alt = estateObjects[i].offer.title;
+    pinElement.style = 'left: ' + (mockData[i].location.x - PIN_WIDTH / 2) + 'px; top: ' + (mockData[i].location.y - PIN_HEIGHT) + 'px';
+    pinElement.querySelector('img').src = mockData[i].author.avatar;
+    pinElement.querySelector('img').alt = mockData[i].offer.title;
     fragment.appendChild(pinElement);
   }
   return fragment;
@@ -92,12 +116,12 @@ var createPin = function (number) {
 
 // создание карточки объявления
 var createCardElement = function (object) {
-  var cardTemplate = document.querySelector('template').content.querySelector('.map__card');
+  var cardTemplate = template.querySelector('.map__card');
   var cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__title').textContent = object.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = object.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = object.offer.price + '₽/ночь';
-  cardElement.querySelector('.popup__type').textContent = ObjectTypes(object.offer.type);
+  cardElement.querySelector('.popup__type').textContent = TypeLabel[object.offer.type.toUpperCase()];
   cardElement.querySelector('.popup__text--capacity').textContent = object.offer.rooms + ' комнаты для ' + object.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + object.offer.checkin + ', выезд до ' + object.offer.checkout;
   // список удобств
@@ -130,5 +154,5 @@ var createCardElement = function (object) {
 };
 
 map.classList.remove('map--faded');
-document.querySelector('.map__pins').appendChild(createPin(numberOfObjects));
-map.insertBefore(createCardElement(estateObjects[0]), map.querySelector('.map__filters-container'));
+document.querySelector('.map__pins').appendChild(createPin(NUMBER_OF_OBJECTS));
+map.insertBefore(createCardElement(mockData[0]), map.querySelector('.map__filters-container'));
