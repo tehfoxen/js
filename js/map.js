@@ -38,7 +38,8 @@ var TypeLabel = {
   BUNGALO: 'Бунгало',
   HOUSE: 'Дом',
   PALACE: 'Дворец'
-}
+};
+
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 
@@ -46,7 +47,7 @@ var template = document.querySelector('template').content;
 // случайная сортировка массива
 var shuffleArray = function (arr) {
   var arrCopy = arr.slice(0);
-  return arrCopy.sort(function() {
+  return arrCopy.sort(function () {
     return Math.random() - 0.5;
   });
 };
@@ -90,21 +91,14 @@ var createDataArray = function () {
   return arr;
 };
 
-// удаление дочерних элементов
-var removeChildren = function (parent, childrens) {
-  for (var i = 0; i < childrens.length; i++) {
-    parent.removeChild(childrens[i]);
-  }
-};
 var map = document.querySelector('.map');
 var mockData = createDataArray();
 
-
 // создание пинов
-var createPin = function (number) {
+var createPin = function (object) {
   var fragment = document.createDocumentFragment();
   var pinTemplate = template.querySelector('.map__pin');
-  for (var i = 0; i < number; i++) {
+  for (var i = 0; i < object; i++) {
     var pinElement = pinTemplate.cloneNode(true);
     pinElement.style = 'left: ' + (mockData[i].location.x - PIN_WIDTH / 2) + 'px; top: ' + (mockData[i].location.y - PIN_HEIGHT) + 'px';
     pinElement.querySelector('img').src = mockData[i].author.avatar;
@@ -126,8 +120,7 @@ var createCardElement = function (object) {
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + object.offer.checkin + ', выезд до ' + object.offer.checkout;
   // список удобств
   var featureList = cardElement.querySelector('.popup__features');
-  var featureElems = featureList.querySelectorAll('li');
-  removeChildren(featureList, featureElems);
+  featureList.innerHTML = '';
   for (var i = 0; i < object.offer.features.length; i++) {
     var li = document.createElement('li');
     li.classList.add('popup__feature');
@@ -138,8 +131,7 @@ var createCardElement = function (object) {
 
   // вставка фотографий
   var photosList = cardElement.querySelector('.popup__photos');
-  var photosElems = photosList.querySelectorAll('img');
-  removeChildren(photosList, photosElems);
+  photosList.innerHTML = '';
   for (i = 0; i < object.offer.photos.length; i++) {
     var img = document.createElement('img');
     img.classList.add('popup__photo');
