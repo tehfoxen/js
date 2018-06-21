@@ -59,6 +59,9 @@ var getRandomArrayItem = function (arr) {
 var getRandomIntegerFromInterval = function (min, max) {
   return Math.floor(Math.random() * ((max + 1) - min) + min);
 };
+var sliceArrayRandom = function (array) {
+  return array.slice(getRandomIntegerFromInterval(0, array.length));
+};
 // создание объявлений
 var createDataArray = function () {
   var arr = [];
@@ -78,7 +81,7 @@ var createDataArray = function () {
         guests: getRandomIntegerFromInterval(2, 15),
         checkin: getRandomArrayItem(TIMES),
         checkout: getRandomArrayItem(TIMES),
-        features: shuffleArray(FEATURES), // По условию задачи нужно не только перемешать, но ещё обрезать до случайной длины, так что у тебя не хватает функции sliceArrayRandom
+        features: sliceArrayRandom(shuffleArray(FEATURES)),
         description: '',
         photos: shuffleArray(PHOTOS)
       },
