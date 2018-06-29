@@ -42,6 +42,11 @@ var TypeLabel = {
 
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+var ENTER_KEYCODE = 13;
+var ESC_KEYCODE = 27;
+var MAP_PIN_WIDTH = 65;
+var MAP_PIN_HEIGHT = 65;
+var TAIL_HEIGHT = 22;
 
 var template = document.querySelector('template').content;
 // случайная сортировка массива
@@ -113,6 +118,7 @@ var createPin = function (object) {
 
 // создание карточки объявления
 var createCardElement = function (object) {
+
   var cardTemplate = template.querySelector('.map__card');
   var cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__title').textContent = object.offer.title;
@@ -148,6 +154,61 @@ var createCardElement = function (object) {
   return cardElement;
 };
 
-map.classList.remove('map--faded');
+/* map.classList.remove('map--faded');
 document.querySelector('.map__pins').appendChild(createPin(NUMBER_OF_OBJECTS));
-map.insertBefore(createCardElement(mockData[0]), map.querySelector('.map__filters-container'));
+map.insertBefore(createCardElement(mockData[0]), map.querySelector('.map__filters-container')); */
+// module 4
+// Закрытие/открытие карточки
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeCard();
+  }
+};
+
+var closeCard = function () {
+  var popup = map.querySelector('.map__card');
+  map.removeChild(popup);
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+var mapPin = document.querySelector('.map__pin--main');
+var adForm = document.querySelector('.ad-form');
+var mapPinAddress = document.querySelector('#address');
+var inactiveFields = document.querySelectorAll('fieldset');
+
+// Определение координат метки
+var calculateAddress = function () {
+  var mapPinX = parseInt(mapPin.style.left, 10) + MAP_PIN_WIDTH / 2;
+  var mapPinY = parseInt(mapPin.style.top, 10) + MAP_PIN_HEIGHT / 2;
+  if (!(map.classList.contains('map--faded'))) {
+    mapPinY += MAP_PIN_HEIGHT / 2 + TAIL_HEIGHT;
+  }
+  return mapPinX + ', ' + mapPinY;
+};
+
+// Неактивное состояние
+for (var i = 0; i < inactiveFields.length; i++) {
+  inactiveFields[i].setAttribute('disabled', 'disabled');
+}
+mapPinAddress.placeholder = calculateAddress();
+
+// Активное состояние
+var isMapActive = function () {
+  createPin();
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  mapPinAddress.placeholder = calculateAddress();
+  for (i = 0; i < inactiveFields.length; i++) {
+    inactiveFields[i].removeAttribute('disabled', 'disabled');
+  }
+};
+
+mapPin.addEventListener('mouseup', function () {
+  isMapActive();
+});
+
+mapPin.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    isMapActive();
+  }
+});
