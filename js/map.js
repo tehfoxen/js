@@ -43,7 +43,6 @@ var TypeLabel = {
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var ENTER_KEYCODE = 13;
-var ESC_KEYCODE = 27;
 var MAP_PIN_WIDTH = 65;
 var MAP_PIN_HEIGHT = 65;
 var TAIL_HEIGHT = 22;
@@ -101,6 +100,7 @@ var createDataArray = function () {
 
 var map = document.querySelector('.map');
 var mockData = createDataArray();
+var mapFiltersContainer = document.querySelector('.map__filters-container');
 // создание пинов
 var createPin = function (object) {
   var fragment = document.createDocumentFragment();
@@ -113,27 +113,28 @@ var createPin = function (object) {
     pinElement.addEventListener('click', function () {
       var mapCard = map.querySelector('.map__card');
       if (mapCard) {
-        closeCard();
+        closeCardPopup();
       }
-      map.insertBefore(createCardElement(mockData[0]), map.querySelector('.map__filters-container'));
+      mapFiltersContainer.parentNode.insertBefore(createCardElement(mockData[0]), mapFiltersContainer);
     });
     fragment.appendChild(pinElement);
   }
   return fragment;
 };
 
+//  Закрытие карточки с описанием
+
+var closeCardPopup = function () {
+  var cardCloseButton = map.querySelector('.popup__close');
+
+  cardCloseButton.addEventListener('click', function () {
+    closeCard();
+  });
+};
 var closeCard = function () {
   var popup = map.querySelector('.map__card');
   map.removeChild(popup);
-  document.removeEventListener('keydown', onPopupEscPress);
 };
-// Закрытие/открытие карточки
-var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
-    closeCard();
-  }
-};
-
 // создание карточки объявления
 var createCardElement = function (object) {
 
