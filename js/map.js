@@ -195,6 +195,7 @@ mapPinAddress.placeholder = calculateAddress();
 // Активное состояние
 var isMapActive = function () {
   createPin();
+  document.querySelector('.map__pins').appendChild(createPin(NUMBER_OF_OBJECTS));
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
   mapPinAddress.placeholder = calculateAddress();
