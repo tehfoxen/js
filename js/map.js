@@ -101,7 +101,6 @@ var createDataArray = function () {
 
 var map = document.querySelector('.map');
 var mockData = createDataArray();
-
 // создание пинов
 var createPin = function (object) {
   var fragment = document.createDocumentFragment();
@@ -111,9 +110,28 @@ var createPin = function (object) {
     pinElement.style = 'left: ' + (mockData[i].location.x - PIN_WIDTH / 2) + 'px; top: ' + (mockData[i].location.y - PIN_HEIGHT) + 'px';
     pinElement.querySelector('img').src = mockData[i].author.avatar;
     pinElement.querySelector('img').alt = mockData[i].offer.title;
+    pinElement.addEventListener('click', function () {
+      var mapCard = map.querySelector('.map__card');
+      if (mapCard) {
+        closeCard();
+      }
+      map.insertBefore(createCardElement(mockData[0]), map.querySelector('.map__filters-container'));
+    });
     fragment.appendChild(pinElement);
   }
   return fragment;
+};
+
+var closeCard = function () {
+  var popup = map.querySelector('.map__card');
+  map.removeChild(popup);
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+// Закрытие/открытие карточки
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeCard();
+  }
 };
 
 // создание карточки объявления
@@ -158,18 +176,7 @@ var createCardElement = function (object) {
 document.querySelector('.map__pins').appendChild(createPin(NUMBER_OF_OBJECTS));
 map.insertBefore(createCardElement(mockData[0]), map.querySelector('.map__filters-container')); */
 // module 4
-// Закрытие/открытие карточки
-var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
-    closeCard();
-  }
-};
 
-var closeCard = function () {
-  var popup = map.querySelector('.map__card');
-  map.removeChild(popup);
-  document.removeEventListener('keydown', onPopupEscPress);
-};
 
 var mapPin = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
@@ -203,6 +210,7 @@ var isMapActive = function () {
     inactiveFields[i].removeAttribute('disabled', 'disabled');
   }
 };
+
 
 mapPin.addEventListener('mouseup', function () {
   isMapActive();
