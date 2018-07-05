@@ -37,6 +37,12 @@ var TypeLabel = {
   PALACE: 'Дворец'
 };
 
+var guestsByRooms = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0]
+};
 // 2. Переменные
 var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
@@ -213,3 +219,89 @@ var onActivateMouseup = function () {
 };
 
 mainPin.addEventListener('mouseup', onActivateMouseup);
+
+var title = form.querySelector('input[name=\'title\']');
+var type = form.querySelector('select[name=\'type\']');
+var price = form.querySelector('input[name=\'price\']');
+
+// Функция установки/удаления валидации
+var setFieldValidity = function (field, isValid, message) {
+  if (isValid) {
+    field.setCustomValidity('');
+    field.classList.remove('error');
+  } else {
+    field.setCustomValidity(message);
+    field.classList.add('error');
+  }
+};
+
+title.addEventListener('invalid', function () {
+  setFieldValidity(title, false, 'Заголовок должен быть длиной от 30 до 100 символов');
+});
+
+title.addEventListener('input', function () {
+  if (title.value.length >= title.minLength && title.value.length <= title.maxLength) {
+    setFieldValidity(title, true);
+  }
+});
+
+price.addEventListener('invalid', function () {
+  var validationLabel = 'Цена должна быть от ' + price.min + ' до ' + price.max + ' рублей';
+  setFieldValidity(price, false, validationLabel);
+});
+
+price.addEventListener('input', function () {
+  if (+price.value >= +price.min && +price.value <= +price.max) {
+    setFieldValidity(price, true);
+  }
+});
+
+type.addEventListener('change', function () {
+  price.min = +type.value;
+  setFieldValidity(price, true);
+});
+
+form.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+});
+
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+
+timeIn.addEventListener('change', function (evt) {
+  timeOut.value = evt.target.value;
+});
+
+timeOut.addEventListener('change', function (evt) {
+  timeIn.value = evt.target.value;
+});
+
+var rooms = document.querySelector('#room_number');
+var guests = document.querySelector('#capacity');
+var submit = document.querySelector('input[type=\'submit\']');
+
+var checkPlaceValidity = function () {
+  var roomGuests = guestsByRooms[rooms.value]; // Берём массив допустимых гостей для этой комнаты
+  if (roomGuests.indexOf(+guests.value) === -1) { // Проверяем, есть ли в нём выбранная
+    guests.setCustomValidity('Количество гостей не влезут в выбранную комнату');
+  } else {
+    guests.setCustomValidity('');
+  }
+};
+
+form.addEventListener('submit', function (evt) {
+  evt.preventDefault(); // Запрещаем отправку формы, для примера
+  alert('Форма отправлена');
+});
+
+rooms.addEventListener('change', function (evt) {
+  evt.target.setCustomValidity(''); // Чтобы пропала красная рамка при изменении значения
+});
+
+guests.addEventListener('change', function (evt) {
+  evt.target.setCustomValidity(''); // Чтобы пропала красная рамка при изменении значения
+});
+
+submit.addEventListener('click', function () {
+  checkPlaceValidity(); // Перед отправкой проверяем на валидность
+});
