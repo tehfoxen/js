@@ -196,9 +196,8 @@ var renderPin = function (array) {
 // 4. Логика
 var fakeData = createDataArray();
 
-// Неактивное состояние
-for (var i = 0; i < fieldsets.length; i++) {
-  fieldsets[i].setAttribute('disabled', 'disabled');
+for (var j = 0; j < fieldsets.length; j++) {
+  fieldsets[j].disabled = true;
 }
 
 addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
@@ -206,9 +205,11 @@ addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
 var onActivateMouseup = function () {
   map.classList.remove('map--faded');
   form.classList.remove('ad-form--disabled');
+  for (var i = 0; i < fieldsets.length; i++) {
+    fieldsets[i].disabled = false;
+  }
   renderPin(fakeData);
   mainPin.removeEventListener('mouseup', onActivateMouseup);
 };
 
 mainPin.addEventListener('mouseup', onActivateMouseup);
-
