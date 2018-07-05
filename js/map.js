@@ -96,7 +96,7 @@ var createDataArray = function () {
 
 var map = document.querySelector('.map');
 var mockData = createDataArray();
-
+console.log(mockData[1]['offer']);
 // создание пинов
 var createPin = function (object) {
   var fragment = document.createDocumentFragment();
@@ -150,4 +150,5 @@ var createCardElement = function (object) {
 
 map.classList.remove('map--faded');
 document.querySelector('.map__pins').appendChild(createPin(NUMBER_OF_OBJECTS));
-map.insertBefore(createCardElement(mockData[0]), map.querySelector('.map__filters-container'));
+map.insertBefore(createCardElement(mockData[0]), map.querySelector('.map__filters-container')); 
+
