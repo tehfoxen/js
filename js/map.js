@@ -278,30 +278,25 @@ timeOut.addEventListener('change', function (evt) {
 
 var rooms = document.querySelector('#room_number');
 var guests = document.querySelector('#capacity');
-var submit = document.querySelector('input[type=\'submit\']');
+var submit = document.querySelector('button[type=\'submit\']');
 
 var checkPlaceValidity = function () {
-  var roomGuests = guestsByRooms[rooms.value]; // Берём массив допустимых гостей для этой комнаты
-  if (roomGuests.indexOf(+guests.value) === -1) { // Проверяем, есть ли в нём выбранная
+  var roomGuests = guestsByRooms[rooms.value];
+  if (roomGuests.indexOf(+guests.value) === -1) {
     guests.setCustomValidity('Количество гостей не влезут в выбранную комнату');
   } else {
     guests.setCustomValidity('');
   }
 };
 
-form.addEventListener('submit', function (evt) {
-  evt.preventDefault(); // Запрещаем отправку формы, для примера
-  alert('Форма отправлена');
-});
-
 rooms.addEventListener('change', function (evt) {
-  evt.target.setCustomValidity(''); // Чтобы пропала красная рамка при изменении значения
+  evt.target.setCustomValidity('');
 });
 
 guests.addEventListener('change', function (evt) {
-  evt.target.setCustomValidity(''); // Чтобы пропала красная рамка при изменении значения
+  evt.target.setCustomValidity('');
 });
 
 submit.addEventListener('click', function () {
-  checkPlaceValidity(); // Перед отправкой проверяем на валидность
+  checkPlaceValidity();
 });
