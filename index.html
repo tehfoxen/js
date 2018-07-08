@@ -90,7 +90,7 @@
     <section class="notice">
       <h2 class="notice__title">Ваше объявление</h2>
 
-      <form class="ad-form ad-form--disabled" method="post" enctype="multipart/form-data" autocomplete="off">
+      <form action="https://js.dump.academy/keksobooking" class="ad-form ad-form--disabled" method="post" enctype="multipart/form-data" autocomplete="off">
         <fieldset class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
           <div class="ad-form-header__upload">
@@ -118,16 +118,16 @@
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="type">Тип жилья</label>
           <select id="type" name="type" required>
-            <option value="0">Бунгало</option>
-            <option value="1000" selected>Квартира</option>
-            <option value="5000">Дом</option>
-            <option value="10000">Дворец</option>
+            <option value="bungalo">Бунгало</option>
+            <option value="flat" selected>Квартира</option>
+            <option value="house">Дом</option>
+            <option value="palace">Дворец</option>
           </select>
         </fieldset>
 
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" min="0" max="1000000" type="number" required placeholder="5000">
+          <input id="price" name="price" min="1000" max="1000000" type="number" required placeholder="1000">
         </fieldset>
 
         <fieldset class="ad-form__element ad-form__element--time">
