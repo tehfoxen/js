@@ -43,6 +43,13 @@ var guestsByRooms = {
   100: [0]
 };
 
+var BuildingPrices = {
+  'palace': 10000,
+  'house': 5000,
+  'flat': 1000,
+  'bungalo': 0
+};
+
 var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
 var mainPin = map.querySelector('.map__pin--main');
@@ -246,15 +253,10 @@ price.addEventListener('invalid', function () {
   setFieldValidity(price, false, validationLabel);
 });
 
-price.addEventListener('input', function () {
-  if (+price.value >= +price.min && +price.value <= +price.max) {
-    setFieldValidity(price, true);
-  }
-});
-
 type.addEventListener('change', function () {
-  price.min = +type.value;
-  setFieldValidity(price, true);
+  var typeValue = BuildingPrices[type.value];
+  price.min = typeValue;
+  price.placeholder = typeValue;
 });
 
 var timeIn = document.querySelector('#timein');
