@@ -315,7 +315,7 @@ var getMapPinCoords = function () {
 };
 
 var fillAddress = function () {
-  var addressInputCoords = getMapPinMainCoords();
+  var addressInputCoords = getMapPinCoords();
   addressInput.value = addressInputCoords.x + ', ' + addressInputCoords.y;
 };
 
