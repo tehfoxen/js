@@ -50,6 +50,17 @@ var BuildingPrices = {
   'bungalo': 0
 };
 
+var DragLimit = {
+  X: {
+    MIN: 0,
+    MAX: 1200
+  },
+  Y: {
+    MIN: 130,
+    MAX: 630
+  }
+};
+
 var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
 var mainPin = map.querySelector('.map__pin--main');
@@ -293,4 +304,68 @@ guests.addEventListener('change', function (evt) {
 
 submit.addEventListener('click', function () {
   checkPlaceValidity();
+});
+
+var getMapPinCoords = function () {
+  var mapPinPosition = {
+    x: mainPin.offsetLeft + Math.floor(mainPin.offsetWidth / 2),
+    y: mainPin.offsetTop + mainPin.offsetHeight
+  };
+  return mapPinPosition;
+};
+
+var fillAddress = function () {
+  var addressInputCoords = getMapPinMainCoords();
+  addressInput.value = addressInputCoords.x + ', ' + addressInputCoords.y;
+};
+
+mainPin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    var mapPinPosition = {
+      x: mainPin.offsetLeft - shift.x,
+      y: mainPin.offsetTop - shift.y
+    };
+
+    var Border = {
+      TOP: DragLimit.Y.MIN - mainPin.offsetHeight,
+      BOTTOM: DragLimit.Y.MAX - mainPin.offsetHeight,
+      LEFT: DragLimit.X.MIN,
+      RIGHT: DragLimit.X.MAX - mainPin.offsetWidth
+    };
+
+    if (mapPinPosition.x >= Border.LEFT && mapPinPosition.x <= Border.RIGHT) {
+      mainPin.style.left = mapPinPosition.x + 'px';
+    }
+
+    if (mapPinPosition.y >= Border.TOP && mapPinPosition.y <= Border.BOTTOM) {
+      mainPin.style.top = mapPinPosition.y + 'px';
+    }
+    fillAddress();
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 });
