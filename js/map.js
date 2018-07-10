@@ -1,6 +1,5 @@
 'use strict';
 
-// 1. Константы
 var ESC_KEYCODE = 27;
 var NUMBER_OF_OBJECTS = 8;
 var MAIN_PIN_DEFAULT_X = 600;
@@ -37,7 +36,20 @@ var TypeLabel = {
   PALACE: 'Дворец'
 };
 
-// 2. Переменные
+var guestsByRooms = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0]
+};
+
+var BuildingPrices = {
+  'palace': 10000,
+  'house': 5000,
+  'flat': 1000,
+  'bungalo': 0
+};
+
 var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
 var mainPin = map.querySelector('.map__pin--main');
@@ -47,7 +59,6 @@ var form = document.querySelector('.ad-form');
 var fieldsets = form.querySelectorAll('fieldset');
 var addressInput = form.querySelector('#address');
 
-// 3. Функции
 var shuffleArray = function (arr) {
   var arrCopy = arr.slice(0);
   return arrCopy.sort(function () {
@@ -193,7 +204,6 @@ var renderPin = function (array) {
   pinsContainer.appendChild(fragment);
 };
 
-// 4. Логика
 var fakeData = createDataArray();
 
 for (var j = 0; j < fieldsets.length; j++) {
@@ -213,3 +223,74 @@ var onActivateMouseup = function () {
 };
 
 mainPin.addEventListener('mouseup', onActivateMouseup);
+
+var title = form.querySelector('#title');
+var type = form.querySelector('#type');
+var price = form.querySelector('#price');
+
+var setFieldValidity = function (field, isValid, message) {
+  if (isValid) {
+    field.setCustomValidity('');
+    field.classList.remove('error');
+  } else {
+    field.setCustomValidity(message);
+    field.classList.add('error');
+  }
+};
+
+title.addEventListener('invalid', function () {
+  setFieldValidity(title, false, 'Заголовок должен быть длиной от 30 до 100 символов');
+});
+
+title.addEventListener('input', function () {
+  if (title.value.length >= title.minLength && title.value.length <= title.maxLength) {
+    setFieldValidity(title, true);
+  }
+});
+
+price.addEventListener('invalid', function () {
+  var validationLabel = 'Цена должна быть от ' + price.min + ' до ' + price.max + ' рублей';
+  setFieldValidity(price, false, validationLabel);
+});
+
+type.addEventListener('change', function () {
+  var typeValue = BuildingPrices[type.value];
+  price.min = typeValue;
+  price.placeholder = typeValue;
+});
+
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+
+timeIn.addEventListener('change', function (evt) {
+  timeOut.value = evt.target.value;
+});
+
+timeOut.addEventListener('change', function (evt) {
+  timeIn.value = evt.target.value;
+});
+
+var rooms = document.querySelector('#room_number');
+var guests = document.querySelector('#capacity');
+var submit = document.querySelector('.ad-form__submit');
+
+var checkPlaceValidity = function () {
+  var roomGuests = guestsByRooms[rooms.value];
+  if (roomGuests.indexOf(+guests.value) === -1) {
+    guests.setCustomValidity('Количество гостей не влезут в выбранную комнату');
+  } else {
+    guests.setCustomValidity('');
+  }
+};
+
+rooms.addEventListener('change', function (evt) {
+  evt.target.setCustomValidity('');
+});
+
+guests.addEventListener('change', function (evt) {
+  evt.target.setCustomValidity('');
+});
+
+submit.addEventListener('click', function () {
+  checkPlaceValidity();
+});

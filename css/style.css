@@ -1216,3 +1216,6 @@ fieldset {
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
 }
+.error {
+  border-color: red;
+}
