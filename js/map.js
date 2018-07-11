@@ -61,6 +61,7 @@ var DragLimit = {
   }
 };
 
+
 var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
 var mainPin = map.querySelector('.map__pin--main');
@@ -342,7 +343,7 @@ mainPin.addEventListener('mousedown', function (evt) {
       x: mainPin.offsetLeft - shift.x,
       y: mainPin.offsetTop - shift.y
     };
-
+    var PinSize = document.querySelector('.map__pin').offsetWidth;
     var Border = {
       TOP: DragLimit.Y.MIN - mainPin.offsetHeight,
       BOTTOM: DragLimit.Y.MAX - mainPin.offsetHeight,
@@ -352,12 +353,14 @@ mainPin.addEventListener('mousedown', function (evt) {
 
     if (mapPinPosition.x >= Border.LEFT && mapPinPosition.x <= Border.RIGHT) {
       mainPin.style.left = mapPinPosition.x + 'px';
+      DragLimit.x = mapPinPosition.x + Math.ceil(PinSize.WIDTH / 2);
     }
 
     if (mapPinPosition.y >= Border.TOP && mapPinPosition.y <= Border.BOTTOM) {
       mainPin.style.top = mapPinPosition.y + 'px';
+      DragLimit.x = mapPinPosition.x + Math.ceil(PinSize.WIDTH / 2);
     }
-    fillAddress();
+    fillAddress(DragLimit.x, DragLimit.y);
   };
 
   var onMouseUp = function (upEvt) {
