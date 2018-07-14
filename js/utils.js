@@ -18,13 +18,10 @@
   var sliceArrayRandom = function (array) {
     return array.slice(getRandomIntegerFromInterval(0, array.length));
   };
-
   window.utils = {
     getRandomIntegerFromInterval: getRandomIntegerFromInterval,
     getRandomArrayItem: getRandomArrayItem,
-    shuffleArray: shuffleArray,
-    sliceArrayRandom: sliceArrayRandom
-
-
+    sliceArrayRandom: sliceArrayRandom,
+    shuffleArray: shuffleArray
   };
 })();

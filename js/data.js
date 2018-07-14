@@ -1,9 +1,6 @@
 'use strict';
 (function () {
-  var ESC_KEYCODE = 27;
   var NUMBER_OF_OBJECTS = 8;
-  var MAIN_PIN_DEFAULT_X = 600;
-  var MAIN_PIN_DEFAULT_Y = 380;
   var TITLES = [
     'Большая уютная квартира',
     'Маленькая неуютная квартира',
@@ -29,51 +26,40 @@
     'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
   ];
-  var TypeLabel = {
-    FLAT: 'Квартира',
-    BUNGALO: 'Бунгало',
-    HOUSE: 'Дом',
-    PALACE: 'Дворец'
-  };
 
-  var guestsByRooms = {
-    1: [1],
-    2: [1, 2],
-    3: [1, 2, 3],
-    100: [0]
-  };
 
-  var BuildingPrices = {
-    'palace': 10000,
-    'house': 5000,
-    'flat': 1000,
-    'bungalo': 0
-  };
-
-  var DragLimit = {
-    X: {
-      MIN: 0,
-      MAX: 1200
-    },
-    Y: {
-      MIN: 130,
-      MAX: 630
+  var createDataArray = function () {
+    var arr = [];
+    for (var i = 0; i < NUMBER_OF_OBJECTS; i++) {
+      var x = window.utils.getRandomIntegerFromInterval(300, 900);
+      var y = window.utils.getRandomIntegerFromInterval(130, 630);
+      arr.push({
+        author: {
+          avatar: 'img/avatars/user' + (i + 1 < 10 ? '0' : '') + (i + 1) + '.png'
+        },
+        offer: {
+          title: TITLES[i],
+          address: x + ', ' + y,
+          price: window.utils.getRandomIntegerFromInterval(1000, 1000000),
+          type: window.utils.getRandomArrayItem(TYPES),
+          rooms: window.utils.getRandomIntegerFromInterval(1, 5),
+          guests: window.utils.getRandomIntegerFromInterval(2, 15),
+          checkin: window.utils.getRandomArrayItem(TIMES),
+          checkout: window.utils.getRandomArrayItem(TIMES),
+          features: window.utils.sliceArrayRandom(window.utils.shuffleArray(FEATURES)),
+          description: '',
+          photos: window.utils.shuffleArray(PHOTOS)
+        },
+        location: {
+          x: x,
+          y: y
+        }
+      });
     }
+    return arr;
   };
 
   window.data = {
-    ESC_KEYCODE: ESC_KEYCODE,
-    NUMBER_OF_OBJECTS: NUMBER_OF_OBJECTS,
-    MAIN_PIN_DEFAULT_X: MAIN_PIN_DEFAULT_X,
-    MAIN_PIN_DEFAULT_Y: MAIN_PIN_DEFAULT_Y,
-    TITLES: TITLES,
-    TYPES: TYPES,
-    TIMES: TIMES,
-    FEATURES: FEATURES,
-    PHOTOS: PHOTOS,
-    TypeLabel: TypeLabel,
-    guestsByRooms: guestsByRooms,
-    BuildingPrices: BuildingPrices,
-    DragLimit: DragLimit
+    createDataArray: createDataArray
   };
 })();

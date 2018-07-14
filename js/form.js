@@ -2,17 +2,46 @@
 
 (function () {
 
+
+  var guestsByRooms = {
+    1: [1],
+    2: [1, 2],
+    3: [1, 2, 3],
+    100: [0]
+  };
+
+  var BuildingPrices = {
+    'palace': 10000,
+    'house': 5000,
+    'flat': 1000,
+    'bungalo': 0
+  };
+  var MAIN_PIN_DEFAULT_X = 600;
+  var MAIN_PIN_DEFAULT_Y = 380;
+
   var form = document.querySelector('.ad-form');
-  var fieldsets = form.querySelectorAll('fieldset');
   var title = form.querySelector('#title');
   var type = form.querySelector('#type');
   var price = form.querySelector('#price');
+  var addressInput = form.querySelector('#address');
 
+  var fieldsets = form.querySelectorAll('fieldset');
   for (var j = 0; j < fieldsets.length; j++) {
     fieldsets[j].disabled = true;
   }
 
+  var onActivateform = function () {
+    form.classList.remove('ad-form--disabled');
+    for (var i = 0; i < fieldsets.length; i++) {
+      fieldsets[i].disabled = false;
+    }
+  };
 
+  addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
+  var fillAddress = function () {
+    var addressInputCoords = window.card.getMapPinCoords();
+    addressInput.value = addressInputCoords.x + ', ' + addressInputCoords.y;
+  };
 
   var setFieldValidity = function (field, isValid, message) {
     if (isValid) {
@@ -40,7 +69,7 @@
   });
 
   type.addEventListener('change', function () {
-    var typeValue = window.data.BuildingPrices[type.value];
+    var typeValue = BuildingPrices[type.value];
     price.min = typeValue;
     price.placeholder = typeValue;
   });
@@ -61,7 +90,7 @@
   var submit = document.querySelector('.ad-form__submit');
 
   var checkPlaceValidity = function () {
-    var roomGuests = window.data.guestsByRooms[rooms.value];
+    var roomGuests = guestsByRooms[rooms.value];
     if (roomGuests.indexOf(+guests.value) === -1) {
       guests.setCustomValidity('Количество гостей не влезут в выбранную комнату');
     } else {
@@ -80,7 +109,10 @@
   submit.addEventListener('click', function () {
     checkPlaceValidity();
   });
-  window.form = {
 
+
+  window.form = {
+    fillAddress: fillAddress,
+    onActivateform: onActivateform
   };
 })();

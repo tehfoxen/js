@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var pinsContainer = map.querySelector('.map__pins');
+  var template = document.querySelector('template').content;
   var createPin = function (object) {
     var pin = template.querySelector('.map__pin').cloneNode(true);
 
@@ -16,16 +16,8 @@
     return pin;
   };
 
-  var renderPin = function (array) {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(createPin(array[i]));
-    }
-    pinsContainer.appendChild(fragment);
-  };
-
   window.pins = {
-    renderPin: renderPin
+    createPin: createPin
 
   };
 })();
