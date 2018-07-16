@@ -7,6 +7,31 @@
     PALACE: 'Дворец'
   };
 
+  var ESC_KEYCODE = 27;
+
+  var map = document.querySelector('.map');
+  var filtersContainer = map.querySelector('.map__filters-container');
+  var renderCard = function (object) {
+    map.insertBefore(window.card.createCard(object), filtersContainer);
+  };
+  var onCardEscKeydown = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      window.form.closeCard();
+    }
+  };
+
+  var closeCard = function () {
+    var card = map.querySelector('.map__card');
+    if (card) {
+      card.remove();
+    }
+    document.removeEventListener('keydown', onCardEscKeydown);
+  };
+  var openCard = function (object) {
+    closeCard();
+    renderCard(object);
+    document.addEventListener('keydown', onCardEscKeydown);
+  };
   var template = document.querySelector('template').content;
   var createCard = function (object) {
     var card = template.querySelector('.map__card').cloneNode(true);
@@ -57,7 +82,8 @@
   };
 
   window.card = {
-    createCard: createCard
-
+    openCard: openCard,
+    createCard: createCard,
+    renderCard: renderCard
   };
 })();

@@ -18,7 +18,6 @@
   };
   var MAIN_PIN_DEFAULT_X = 600;
   var MAIN_PIN_DEFAULT_Y = 380;
-
   var form = document.querySelector('.ad-form');
   var title = form.querySelector('#title');
   var type = form.querySelector('#type');
@@ -39,7 +38,7 @@
 
   addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
   var fillAddress = function () {
-    var addressInputCoords = window.card.getMapPinCoords();
+    var addressInputCoords = window.map.getMapPinCoords();
     addressInput.value = addressInputCoords.x + ', ' + addressInputCoords.y;
   };
 

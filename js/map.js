@@ -1,8 +1,6 @@
 'use strict';
 (function () {
 
-  var ESC_KEYCODE = 27;
-
   var DragLimit = {
     X: {
       MIN: 0,
@@ -14,24 +12,7 @@
     }
   };
   var map = document.querySelector('.map');
-  var mainPin = map.querySelector('.map__pin--main');
-  var pinsContainer = map.querySelector('.map__pins');
-  var filtersContainer = map.querySelector('.map__filters-container');
-
-  var renderCard = function (object) {
-    map.insertBefore(window.card.createCard(object), filtersContainer);
-  };
-
-
-  var renderPin = function (array) {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(window.pins.createPin(array[i]));
-    }
-    pinsContainer.appendChild(fragment);
-  };
-
-
+  var mainPin = document.querySelector('.map__pin--main');
   var fakeData = window.data.createDataArray();
 
   var getMapPinCoords = function () {
@@ -45,27 +26,8 @@
   var onActivateMouseup = function () {
     map.classList.remove('map--faded');
     window.form.onActivateform();
-    renderPin(fakeData);
+    window.pins.renderPin(fakeData);
     mainPin.removeEventListener('mouseup', onActivateMouseup);
-  };
-  var onCardEscKeydown = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      closeCard();
-    }
-  };
-
-  var closeCard = function () {
-    var card = map.querySelector('.map__card');
-    if (card) {
-      card.remove();
-    }
-    document.removeEventListener('keydown', onCardEscKeydown);
-  };
-
-  var openCard = function (object) {
-    closeCard();
-    renderCard(object);
-    document.addEventListener('keydown', onCardEscKeydown);
   };
 
   mainPin.addEventListener('mousedown', function (evt) {
@@ -117,13 +79,14 @@
       document.removeEventListener('mouseup', onMouseUp);
     };
 
+    if (document.querySelector('.map').classList.contains('map--faded')) {
+      onActivateMouseup();
+    }
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
 
-  window.card = {
-    closeCard: closeCard,
-    openCard: openCard,
+  window.map = {
     getMapPinCoords: getMapPinCoords
   };
 })();

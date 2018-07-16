@@ -58,8 +58,10 @@
     }
     return arr;
   };
+  var fakeData = createDataArray();
 
   window.data = {
-    createDataArray: createDataArray
+    createDataArray: createDataArray,
+    fakeData: fakeData
   };
 })();
