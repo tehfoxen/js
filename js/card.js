@@ -27,6 +27,7 @@
     }
     document.removeEventListener('keydown', onCardEscKeydown);
   };
+
   var openCard = function (object) {
     closeCard();
     renderCard(object);
@@ -75,7 +76,7 @@
     }
 
     card.querySelector('.popup__close').addEventListener('click', function () {
-      window.card.closeCard();
+      closeCard();
     });
 
     return card;

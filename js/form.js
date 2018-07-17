@@ -66,6 +66,12 @@
     var validationLabel = 'Цена должна быть от ' + price.min + ' до ' + price.max + ' рублей';
     setFieldValidity(price, false, validationLabel);
   });
+  
+  price.addEventListener("input", function() {
+    if (+price.value >= +price.min && +price.value <= +price.max) { 
+      setFieldValidity(price, true);
+    }
+  });
 
   type.addEventListener('change', function () {
     var typeValue = BuildingPrices[type.value];
