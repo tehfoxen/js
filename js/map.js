@@ -23,10 +23,19 @@
     return mapPinPosition;
   };
 
+
+  var onLoadSuccess = function (fakeData) {
+    window.pins.renderPin(fakeData);
+  };
+
+  var onLoadError = function (errorMessage) {
+    window.utils.renderErrorMessage(errorMessage);
+  };
+
   var onActivateMouseup = function () {
     map.classList.remove('map--faded');
+    window.backend.load(onLoadSuccess, onLoadError);
     window.form.onActivateform();
-    window.pins.renderPin(fakeData);
     mainPin.removeEventListener('mouseup', onActivateMouseup);
   };
 

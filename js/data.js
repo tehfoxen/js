@@ -28,36 +28,7 @@
   ];
 
 
-  var createDataArray = function () {
-    var arr = [];
-    for (var i = 0; i < NUMBER_OF_OBJECTS; i++) {
-      var x = window.utils.getRandomIntegerFromInterval(300, 900);
-      var y = window.utils.getRandomIntegerFromInterval(130, 630);
-      arr.push({
-        author: {
-          avatar: 'img/avatars/user' + (i + 1 < 10 ? '0' : '') + (i + 1) + '.png'
-        },
-        offer: {
-          title: TITLES[i],
-          address: x + ', ' + y,
-          price: window.utils.getRandomIntegerFromInterval(1000, 1000000),
-          type: window.utils.getRandomArrayItem(TYPES),
-          rooms: window.utils.getRandomIntegerFromInterval(1, 5),
-          guests: window.utils.getRandomIntegerFromInterval(2, 15),
-          checkin: window.utils.getRandomArrayItem(TIMES),
-          checkout: window.utils.getRandomArrayItem(TIMES),
-          features: window.utils.sliceArrayRandom(window.utils.shuffleArray(FEATURES)),
-          description: '',
-          photos: window.utils.shuffleArray(PHOTOS)
-        },
-        location: {
-          x: x,
-          y: y
-        }
-      });
-    }
-    return arr;
-  };
+
   var fakeData = createDataArray();
 
   window.data = {
