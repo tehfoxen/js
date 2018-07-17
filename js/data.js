@@ -1,5 +1,5 @@
 'use strict';
-(function () {
+/* (function () {
   var NUMBER_OF_OBJECTS = 8;
   var TITLES = [
     'Большая уютная квартира',
@@ -64,4 +64,4 @@
     createDataArray: createDataArray,
     fakeData: fakeData
   };
-})();
+})();*/
