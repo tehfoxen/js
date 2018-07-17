@@ -18,10 +18,19 @@
   var sliceArrayRandom = function (array) {
     return array.slice(getRandomIntegerFromInterval(0, array.length));
   };
+
+  var renderErrorMessage = function (errorMessage) {
+    var message = document.createElement('div');
+    message.classList.add('error-message');
+    message.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', message);
+  };
+
   window.utils = {
     getRandomIntegerFromInterval: getRandomIntegerFromInterval,
     getRandomArrayItem: getRandomArrayItem,
     sliceArrayRandom: sliceArrayRandom,
-    shuffleArray: shuffleArray
+    shuffleArray: shuffleArray,
+    renderErrorMessage: renderErrorMessage
   };
 })();

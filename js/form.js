@@ -112,8 +112,13 @@
 
   submit.addEventListener('click', function () {
     checkPlaceValidity();
+    var formData = new FormData(form);
+    window.backend.upload(onActivateform, onSubmitError, formData);
   });
 
+  var onSubmitError = function (errorMessage) {
+    window.utils.renderErrorMessage(errorMessage);
+  };
 
   window.form = {
     fillAddress: fillAddress,

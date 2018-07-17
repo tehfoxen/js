@@ -13,7 +13,6 @@
   };
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
-  var fakeData = window.data.createDataArray();
 
   var getMapPinCoords = function () {
     var mapPinPosition = {
@@ -23,10 +22,18 @@
     return mapPinPosition;
   };
 
+  var onLoadSuccess = function (object) {
+    window.pins.renderPin(object);
+  };
+
+  var onLoadError = function (errorMessage) {
+    window.utils.renderErrorMessage(errorMessage);
+  };
+
   var onActivateMouseup = function () {
     map.classList.remove('map--faded');
+    window.backend.load(onLoadSuccess, onLoadError);
     window.form.onActivateform();
-    window.pins.renderPin(fakeData);
     mainPin.removeEventListener('mouseup', onActivateMouseup);
   };
 
