@@ -38,7 +38,7 @@
   };
 
   var onLoadSuccess = function (object) {
-    window.filter.activate(object);
+    window.pins.renderPin(object);
   };
 
   var onLoadError = function (errorMessage) {
@@ -51,6 +51,7 @@
     removeMapCard();
     window.backend.load(onLoadSuccess, onLoadError);
     window.form.onActivateform();
+    
     mainPin.removeEventListener('mouseup', onActivateMouseup);
   };
 
@@ -112,7 +113,7 @@
 
   window.map = {
     getMapPinCoords: getMapPinCoords,
-    removeMapCard: removeMapCard,
-    removePins: removePins
+    removePins: removePins,
+    removeMapCard: removeMapCard
   };
 })();
