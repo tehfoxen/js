@@ -59,7 +59,7 @@
   var onFilterChange = window.utils.debounce(function () {
     filterData = data.slice(0);
     filterData = filterData.filter(filtrationByType).filter(filtrationByPrice).filter(filtrationByRooms).filter(filtrationByGuests).filter(filtrationByFeatures);
-    window.pins.removePins();
+    window.map.removePins();
     window.map.removeMapCard();
     window.pins.renderPin(filterData.slice(0, PINS));
   });

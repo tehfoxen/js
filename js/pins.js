@@ -25,17 +25,9 @@
     return pin;
   };
 
-  var removePins = function () {
-    var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var j = 0; j < mapPinsItems.length; j++) {
-      mapPinsItems[j].remove();
-    }
-  };
-
   window.pins = {
     createPin: createPin,
-    renderPin: renderPin,
-    removePins: removePins
+    renderPin: renderPin
 
   };
 })();
