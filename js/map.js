@@ -36,7 +36,6 @@
   };
   var onLoadSuccess = function (object) {
     window.pins.renderPin(object);
-    window.filter.activate(object);
   };
 
   var onLoadError = function (errorMessage) {
