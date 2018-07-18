@@ -114,6 +114,7 @@
     checkPlaceValidity();
     var formData = new FormData(form);
     window.backend.upload(onActivateform, onSubmitError, formData);
+    window.filter.deactivate();
   });
 
   var onSubmitError = function (errorMessage) {

@@ -19,12 +19,12 @@
   };
 
   var filter = document.querySelector('.map__filters');
-  var filterItems = filter.querySelectorAll('select, input');
   var typeSelect = filter.querySelector('#housing-type');
   var priceSelect = filter.querySelector('#housing-price');
   var roomsSelect = filter.querySelector('#housing-rooms');
   var guestsSelect = filter.querySelector('#housing-guests');
   var featuresFieldset = filter.querySelector('#housing-features');
+  var filterItems = filter.querySelectorAll('select, input');
   var data = [];
   var filteredData = [];
 
