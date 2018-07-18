@@ -36,8 +36,8 @@
     }
   };
 
-  var onLoadSuccess = function (adData) {
-    window.filter.activate(adData);
+  var onLoadSuccess = function (object) {
+    window.filter.activate(object);
   };
 
   var onLoadError = function (errorMessage) {
@@ -113,6 +113,5 @@
     getMapPinCoords: getMapPinCoords,
     removePins: removePins,
     removeMapCard: removeMapCard
-    
   };
 })();

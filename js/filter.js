@@ -90,10 +90,10 @@
     filter.removeEventListener('change', onFilterChange);
   };
 
-  var activateFiltration = function (adData) {
-    data = adData.slice(0);
+  var activateFiltration = function (object) {
+    data = object.slice(0);
     activateFilter();
-    return adData.slice(0, PINS_LIMIT);
+    return object.slice(0, PINS_LIMIT);
   };
 
   var deactivateFiltration = function () {
