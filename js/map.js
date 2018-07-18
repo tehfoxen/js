@@ -11,7 +11,6 @@
       MAX: 630
     }
   };
-
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
 
@@ -23,22 +22,8 @@
     return mapPinPosition;
   };
 
-  var removePins = function () {
-    var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var j = 0; j < mapPinsItems.length; j++) {
-      mapPinsItems[j].remove();
-    }
-  };
-
-  var removeMapCard = function () {
-    var mapCard = document.querySelector('.map__card');
-    if (mapCard) {
-      mapCard.remove();
-    }
-  };
-
-  var onLoadSuccess = function (object) {
-    window.filter.activate(object);
+  var onLoadSuccess = function (adData) {
+    window.filter.activate(adData);
   };
 
   var onLoadError = function (errorMessage) {
@@ -47,8 +32,6 @@
 
   var onActivateMouseup = function () {
     map.classList.remove('map--faded');
-    removePins();
-    removeMapCard();
     window.backend.load(onLoadSuccess, onLoadError);
     window.form.onActivateform();
     mainPin.removeEventListener('mouseup', onActivateMouseup);
@@ -111,8 +94,6 @@
   });
 
   window.map = {
-    getMapPinCoords: getMapPinCoords,
-    removePins: removePins,
-    removeMapCard: removeMapCard
+    getMapPinCoords: getMapPinCoords
   };
 })();
