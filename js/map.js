@@ -35,7 +35,7 @@
     }
   };
   var onLoadSuccess = function (object) {
-    window.pins.renderPin(object);
+    window.filter.activate(object);
   };
 
   var onLoadError = function (errorMessage) {
@@ -47,6 +47,8 @@
     window.backend.load(onLoadSuccess, onLoadError);
     window.form.onActivateform();
     mainPin.removeEventListener('mouseup', onActivateMouseup);
+    removePins();
+    removeMapCard();
   };
 
   mainPin.addEventListener('mousedown', function (evt) {

@@ -3,7 +3,7 @@
 (function () {
   var PINS_LIMIT = 9;
 
-  var PriceRange = {
+  var PriceFilter = {
     LOW: {
       MIN: 0,
       MAX: 10000
@@ -37,7 +37,7 @@
   };
 
   var filtrationByPrice = function (item) {
-    var filteringPrice = PriceRange[priceSelect.value.toUpperCase()];
+    var filteringPrice = PriceFilter[priceSelect.value.toUpperCase()];
     return filteringPrice ? item.offer.price >= filteringPrice.MIN && item.offer.price <= filteringPrice.MAX : true;
   };
 
