@@ -21,7 +21,6 @@
     };
     return mapPinPosition;
   };
-
   var removePins = function () {
     var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var j = 0; j < mapPinsItems.length; j++) {
@@ -35,8 +34,8 @@
       mapCard.remove();
     }
   };
-
   var onLoadSuccess = function (object) {
+    window.pins.renderPin(object);
     window.filter.activate(object);
   };
 
@@ -46,8 +45,6 @@
 
   var onActivateMouseup = function () {
     map.classList.remove('map--faded');
-    removePins();
-    removeMapCard();
     window.backend.load(onLoadSuccess, onLoadError);
     window.form.onActivateform();
     mainPin.removeEventListener('mouseup', onActivateMouseup);
@@ -113,5 +110,6 @@
     getMapPinCoords: getMapPinCoords,
     removePins: removePins,
     removeMapCard: removeMapCard
+
   };
 })();
