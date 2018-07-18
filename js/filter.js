@@ -56,7 +56,7 @@
     });
   };
 
-  var onFilterChange = window.utils.debounce(function () {
+  var onFilterChange = window.debounce(function () {
     filteredData = data.slice(0);
     filteredData = filteredData.filter(filtrationByType).filter(filtrationByPrice).filter(filtrationByRooms).filter(filtrationByGuests).filter(filtrationByFeatures);
     window.map.removePins();

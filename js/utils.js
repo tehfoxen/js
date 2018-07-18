@@ -26,22 +26,11 @@
     document.body.insertAdjacentElement('afterbegin', message);
   };
 
-  var DEBOUNCE_INTERVAL = 500;
-  var lastTimeout = null;
-
-  var debounce = function (func) {
-    if (lastTimeout) {
-      window.clearTimeout(lastTimeout);
-    }
-    lastTimeout = window.setTimeout(func, DEBOUNCE_INTERVAL);
-  };
-
   window.utils = {
     getRandomIntegerFromInterval: getRandomIntegerFromInterval,
     getRandomArrayItem: getRandomArrayItem,
     sliceArrayRandom: sliceArrayRandom,
     shuffleArray: shuffleArray,
     renderErrorMessage: renderErrorMessage,
-    debounce: debounce
   };
 })();
