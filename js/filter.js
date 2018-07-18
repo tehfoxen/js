@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
-  var PINS_LIMIT = 5;
+  var PINS = 5;
 
-  var PriceRange = {
+  var PriceFilter = {
     LOW: {
       MIN: 0,
       MAX: 10000
@@ -19,14 +19,14 @@
   };
 
   var filter = document.querySelector('.map__filters');
-  var filterItems = filter.querySelectorAll('select, input');
   var typeSelect = filter.querySelector('#housing-type');
   var priceSelect = filter.querySelector('#housing-price');
   var roomsSelect = filter.querySelector('#housing-rooms');
   var guestsSelect = filter.querySelector('#housing-guests');
   var featuresFieldset = filter.querySelector('#housing-features');
+  var filterItems = filter.querySelectorAll('select, input');
   var data = [];
-  var filteredData = [];
+  var filterData = [];
 
   var filtrationItem = function (it, item, key) {
     return it.value === 'any' ? true : it.value === item[key].toString();
@@ -37,7 +37,7 @@
   };
 
   var filtrationByPrice = function (item) {
-    var filteringPrice = PriceRange[priceSelect.value.toUpperCase()];
+    var filteringPrice = PriceFilter[priceSelect.value.toUpperCase()];
     return filteringPrice ? item.offer.price >= filteringPrice.MIN && item.offer.price <= filteringPrice.MAX : true;
   };
 
@@ -57,11 +57,11 @@
   };
 
   var onFilterChange = window.utils.debounce(function () {
-    filteredData = data.slice(0);
-    filteredData = filteredData.filter(filtrationByType).filter(filtrationByPrice).filter(filtrationByRooms).filter(filtrationByGuests).filter(filtrationByFeatures);
+    filterData = data.slice(0);
+    filterData = filterData.filter(filtrationByType).filter(filtrationByPrice).filter(filtrationByRooms).filter(filtrationByGuests).filter(filtrationByFeatures);
     window.map.removePins();
     window.map.removeMapCard();
-    window.map.renderPinsMarkup(filteredData.slice(0, PINS_LIMIT));
+    window.map.renderPinsMarkup(filterData.slice(0, PINS));
   });
 
   var activateFilter = function () {
@@ -93,7 +93,7 @@
   var activateFiltration = function (adData) {
     data = adData.slice(0);
     activateFilter();
-    return adData.slice(0, PINS_LIMIT);
+    return adData.slice(0, PINS);
   };
 
   var deactivateFiltration = function () {
