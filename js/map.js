@@ -103,6 +103,7 @@
   });
 
   window.map = {
-    getMapPinCoords: getMapPinCoords
+    getMapPinCoords: getMapPinCoords,
+    removePins: removePins
   };
 })();
