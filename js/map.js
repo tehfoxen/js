@@ -22,6 +22,13 @@
     return mapPinPosition;
   };
 
+  var removePins = function () {
+    var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var j = 0; j < mapPinsItems.length; j++) {
+      mapPinsItems[j].remove();
+    }
+  };
+
   var onLoadSuccess = function (object) {
     window.pins.renderPin(object);
     window.filter.activate(object);
@@ -34,6 +41,7 @@
   var onActivateMouseup = function () {
     map.classList.remove('map--faded');
     window.backend.load(onLoadSuccess, onLoadError);
+    removePins();
     window.form.onActivateform();
     mainPin.removeEventListener('mouseup', onActivateMouseup);
   };
