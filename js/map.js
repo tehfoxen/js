@@ -11,6 +11,7 @@
       MAX: 630
     }
   };
+
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
 
@@ -20,25 +21,6 @@
       y: mainPin.offsetTop + mainPin.offsetHeight
     };
     return mapPinPosition;
-  };
-
-
-  var onLoadSuccess = function (object) {
-    window.pins.renderPin(object);
-    window.filter.activate(object);
-  };
-
-  var onLoadError = function (errorMessage) {
-    window.utils.renderErrorMessage(errorMessage);
-  };
-
-  var onActivateMouseup = function () {
-    map.classList.remove('map--faded');
-    window.backend.load(onLoadSuccess, onLoadError);
-    removePins();
-    removeMapCard();
-    window.form.onActivateform();
-    mainPin.removeEventListener('mouseup', onActivateMouseup);
   };
 
   var removePins = function () {
@@ -55,6 +37,22 @@
     }
   };
 
+  var onLoadSuccess = function (object) {
+    window.filter.activate(object);
+  };
+
+  var onLoadError = function (errorMessage) {
+    window.utils.renderErrorMessage(errorMessage);
+  };
+
+  var onActivateMouseup = function () {
+    map.classList.remove('map--faded');
+    removePins();
+    removeMapCard();
+    window.backend.load(onLoadSuccess, onLoadError);
+    window.form.onActivateform();
+    mainPin.removeEventListener('mouseup', onActivateMouseup);
+  };
 
   mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
