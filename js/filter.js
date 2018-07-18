@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var PINS_LIMIT = 5;
+  var PINS_LIMIT = 9;
 
   var PriceRange = {
     LOW: {
