@@ -1,4 +1,7 @@
 'use strict';
+
+var TIMEOUT = 3000;
+
 (function () {
   var shuffleArray = function (arr) {
     var arrCopy = arr.slice(0);
@@ -24,6 +27,9 @@
     message.classList.add('error-message');
     message.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', message);
+    setTimeout(function () {
+      document.body.removeChild(message.textContent);
+    }, TIMEOUT);
   };
 
   window.utils = {

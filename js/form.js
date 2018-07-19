@@ -2,14 +2,6 @@
 
 (function () {
 
-
-  var guestsByRooms = {
-    1: [1],
-    2: [1, 2],
-    3: [1, 2, 3],
-    100: [0]
-  };
-
   var BuildingPrices = {
     'palace': 10000,
     'house': 5000,
@@ -23,6 +15,7 @@
   var type = form.querySelector('#type');
   var price = form.querySelector('#price');
   var addressInput = form.querySelector('#address');
+  var resetBtn = document.querySelector('.ad-form__reset');
 
   var fieldsets = form.querySelectorAll('fieldset');
   for (var j = 0; j < fieldsets.length; j++) {
@@ -93,6 +86,13 @@
   var guests = document.querySelector('#capacity');
   var submit = document.querySelector('.ad-form__submit');
 
+  var guestsByRooms = {
+    1: [1],
+    2: [1, 2],
+    3: [1, 2, 3],
+    100: [0]
+  };
+
   var checkPlaceValidity = function () {
     var roomGuests = guestsByRooms[rooms.value];
     if (roomGuests.indexOf(+guests.value) === -1) {
@@ -112,14 +112,26 @@
 
   submit.addEventListener('click', function () {
     checkPlaceValidity();
-    var formData = new FormData(form);
-    window.backend.upload(onActivateform, onSubmitError, formData);
     window.filter.deactivate();
   });
+
+  submit = function (evt) {
+    evt.preventDefault();
+    var formData = new FormData(form);
+    window.backend.upload(onActivateform, onSubmitError, formData);
+  };
+
 
   var onSubmitError = function (errorMessage) {
     window.utils.renderErrorMessage(errorMessage);
   };
+
+  resetBtn.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.map.deactivate();
+    window.filter.deactivate();
+  });
+
 
   window.form = {
     fillAddress: fillAddress,

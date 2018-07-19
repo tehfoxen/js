@@ -13,6 +13,7 @@
   };
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
+  var activePage = false;
 
   var getMapPinCoords = function () {
     var mapPinPosition = {
@@ -35,7 +36,7 @@
     }
   };
   var onLoadSuccess = function (object) {
-    window.filter.activate(object);
+    window.filter.activateOn(object);
   };
 
   var onLoadError = function (errorMessage) {
@@ -46,9 +47,15 @@
     map.classList.remove('map--faded');
     window.backend.load(onLoadSuccess, onLoadError);
     window.form.onActivateform();
-    mainPin.removeEventListener('mouseup', onActivateMouseup);
+  };
+
+  var deactivateMouseup = function () {
+    map.classList.add('map--faded');
     removePins();
     removeMapCard();
+    getMapPinCoords();
+    window.filter.deactivateFiltration();
+    activePage = false;
   };
 
   mainPin.addEventListener('mousedown', function (evt) {
@@ -100,8 +107,10 @@
       document.removeEventListener('mouseup', onMouseUp);
     };
 
-    if (document.querySelector('.map').classList.contains('map--faded')) {
+    if (!activePage) {
       onActivateMouseup();
+      window.form.onActivateform();
+      activePage = true;
     }
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
@@ -110,7 +119,8 @@
   window.map = {
     getMapPinCoords: getMapPinCoords,
     removePins: removePins,
-    removeMapCard: removeMapCard
+    removeMapCard: removeMapCard,
+    deactivateMouseup: deactivateMouseup
 
   };
 })();
