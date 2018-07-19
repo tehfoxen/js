@@ -31,6 +31,6 @@
     getRandomArrayItem: getRandomArrayItem,
     sliceArrayRandom: sliceArrayRandom,
     shuffleArray: shuffleArray,
-    renderErrorMessage: renderErrorMessage
+    renderErrorMessage: renderErrorMessage,
   };
 })();
