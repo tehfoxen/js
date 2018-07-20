@@ -21,7 +21,8 @@
   var rooms = document.querySelector('#room_number');
   var guests = document.querySelector('#capacity');
   var submit = document.querySelector('.ad-form__submit');
-  
+  var Adsubmit = Adform.querySelector("[type=\"submit\"]");
+
   
   Adform.addEventListener("submit", function(evt) {
     evt.preventDefault();
