@@ -23,13 +23,14 @@ var TIMEOUT = 3000;
   };
 
   var renderErrorMessage = function (errorMessage) {
+    var errorMesssageBlock = document.querySelector('.error-message');
+    if (errorMesssageBlock) {
+      errorMesssageBlock.remove();
+    }
     var message = document.createElement('div');
     message.classList.add('error-message');
     message.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', message);
-    setTimeout(function () {
-      document.body.removeChild(message.textContent);
-    }, TIMEOUT);
   };
 
   window.utils = {
