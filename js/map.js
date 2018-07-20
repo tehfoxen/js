@@ -3,7 +3,7 @@
   var DEFAULT_MAIN_PIN_X = 600;
   var DEFAULT_MAIN_PIN_Y = 375;
 
-  var Pins = {
+  var Pin = {
     WIDTH: 65,
     HEIGHT: 65,
   };
@@ -60,8 +60,8 @@
     map.classList.add('map--faded');
     removePins();
     removeMapCard();
-    mainPin.style.top = DEFAULT_MAIN_PIN_Y - Pins.HEIGHT / 2 + 'px';
-    mainPin.style.left = DEFAULT_MAIN_PIN_X - Pins.WIDTH / 2 + 'px';
+    mainPin.style.top = DEFAULT_MAIN_PIN_Y - Pin.HEIGHT / 2 + 'px';
+    mainPin.style.left = DEFAULT_MAIN_PIN_X - Pin.WIDTH / 2 + 'px';
     activePage = false;
   };
 
