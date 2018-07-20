@@ -1,7 +1,5 @@
 'use strict';
 
-var TIMEOUT = 3000;
-
 (function () {
   var shuffleArray = function (arr) {
     var arrCopy = arr.slice(0);
