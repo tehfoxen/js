@@ -10,6 +10,7 @@
   };
   var MAIN_PIN_DEFAULT_X = 600;
   var MAIN_PIN_DEFAULT_Y = 380;
+  var Adform = document.querySelector("form");
   var form = document.querySelector('.ad-form');
   var title = form.querySelector('#title');
   var type = form.querySelector('#type');
@@ -22,8 +23,7 @@
   var submit = document.querySelector('.ad-form__submit');
   
   
-  
-  form.addEventListener("submit", function(evt) {
+  Adform.addEventListener("submit", function(evt) {
     evt.preventDefault();
   });
   
