@@ -46,7 +46,7 @@
   var onActivateMouseup = function () {
     map.classList.remove('map--faded');
     window.backend.load(onLoadSuccess, onLoadError);
-    window.form.onActivateform();
+    window.form.activate();
   };
 
   var deactivateMouseup = function () {
@@ -109,7 +109,7 @@
 
     if (!activePage) {
       onActivateMouseup();
-      window.form.onActivateform();
+      window.form.activate();
       activePage = true;
     }
     document.addEventListener('mousemove', onMouseMove);
@@ -119,8 +119,6 @@
   window.map = {
     getMapPinCoords: getMapPinCoords,
     removePins: removePins,
-    removeMapCard: removeMapCard,
-    deactivateMouseup: deactivateMouseup
-
+    removeMapCard: removeMapCard
   };
 })();
