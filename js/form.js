@@ -10,7 +10,7 @@
   };
   var MAIN_PIN_DEFAULT_X = 600;
   var MAIN_PIN_DEFAULT_Y = 380;
-  var Adform = document.querySelector("form");
+
   var form = document.querySelector('.ad-form');
   var title = form.querySelector('#title');
   var type = form.querySelector('#type');
@@ -21,10 +21,8 @@
   var rooms = document.querySelector('#room_number');
   var guests = document.querySelector('#capacity');
   var submit = document.querySelector('.ad-form__submit');
-  var Adsubmit = Adform.querySelector("[type=\"submit\"]");
-
   
-  Adform.addEventListener("submit", function(evt) {
+  form.addEventListener("submit", function(evt) {
     evt.preventDefault();
   });
   
