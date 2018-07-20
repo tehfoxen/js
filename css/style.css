@@ -1219,3 +1219,10 @@ fieldset {
 .error {
   border-color: red;
 }
+.error-message{
+  position: relative;
+  font-size: 20px;
+  text-align: center;
+  color: #ff3f3f;
+  border-color: red;
+}

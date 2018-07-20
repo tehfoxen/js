@@ -7,8 +7,6 @@
     PALACE: 'Дворец'
   };
 
-  var ESC_KEYCODE = 27;
-
   var map = document.querySelector('.map');
   var filtersContainer = map.querySelector('.map__filters-container');
   var renderCard = function (object) {
@@ -24,9 +22,7 @@
   };
 
   var onCardEscKeydown = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      closeCard();
-    }
+    window.utils.onEscDown(evt, closeCard);
   };
 
   var openCard = function (object) {
@@ -84,6 +80,7 @@
   };
 
   window.card = {
-    openCard: openCard
+    openCard: openCard,
+    onCardEscKeydown: onCardEscKeydown
   };
 })();

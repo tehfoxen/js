@@ -10,14 +10,20 @@
   };
   var MAIN_PIN_DEFAULT_X = 600;
   var MAIN_PIN_DEFAULT_Y = 380;
+
   var form = document.querySelector('.ad-form');
   var title = form.querySelector('#title');
   var type = form.querySelector('#type');
   var price = form.querySelector('#price');
   var addressInput = form.querySelector('#address');
   var resetBtn = document.querySelector('.ad-form__reset');
-
   var fieldsets = form.querySelectorAll('fieldset');
+  var rooms = document.querySelector('#room_number');
+  var guests = document.querySelector('#capacity');
+  var submit = document.querySelector('.ad-form__submit');
+  var success = document.querySelector('.success');
+  var adFormElements = document.querySelectorAll('.ad-form__element');
+
   for (var j = 0; j < fieldsets.length; j++) {
     fieldsets[j].disabled = true;
   }
@@ -33,6 +39,15 @@
   var fillAddress = function () {
     var addressInputCoords = window.map.getMapPinCoords();
     addressInput.value = addressInputCoords.x + ', ' + addressInputCoords.y;
+  };
+
+  var deactivateForm = function () {
+    form.reset();
+    adFormElements.forEach(function (it) {
+      it.disabled = true;
+    });
+    form.classList.add('ad-form--disabled');
+    fillAddress(window.map.getMapPinCoords());
   };
 
   var setFieldValidity = function (field, isValid, message) {
@@ -82,10 +97,6 @@
     timeIn.value = evt.target.value;
   });
 
-  var rooms = document.querySelector('#room_number');
-  var guests = document.querySelector('#capacity');
-  var submit = document.querySelector('.ad-form__submit');
-
   var guestsByRooms = {
     1: [1],
     2: [1, 2],
@@ -112,15 +123,13 @@
 
   submit.addEventListener('click', function () {
     checkPlaceValidity();
-    window.filter.deactivate();
   });
 
-  submit = function (evt) {
+  form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     var formData = new FormData(form);
-    window.backend.upload(onActivateform, onSubmitError, formData);
-  };
-
+    window.backend.upload(onSubmitSuccess, onSubmitError, formData);
+  });
 
   var onSubmitError = function (errorMessage) {
     window.utils.renderErrorMessage(errorMessage);
@@ -128,13 +137,41 @@
 
   resetBtn.addEventListener('click', function (evt) {
     evt.preventDefault();
+    deactivateForm();
     window.map.deactivate();
     window.filter.deactivate();
   });
 
+  var onSuccessEscDown = function (evt) {
+    window.utils.onEscDown(evt, closeSuccess);
+  };
+
+  var onSuccessClick = function () {
+    closeSuccess();
+  };
+
+  var closeSuccess = function () {
+    success.classList.add('hidden');
+    document.removeEventListener('keydown', onSuccessEscDown);
+    success.removeEventListener('click', onSuccessClick);
+  };
+
+  var showSuccess = function () {
+    success.classList.remove('hidden');
+    document.addEventListener('keydown', onSuccessEscDown);
+    success.addEventListener('click', onSuccessClick);
+  };
+
+  var onSubmitSuccess = function () {
+    showSuccess();
+    deactivateForm();
+    window.map.deactivate();
+    window.filter.deactivate();
+  };
+
 
   window.form = {
     fillAddress: fillAddress,
-    onActivateform: onActivateform
+    activate: onActivateform
   };
 })();

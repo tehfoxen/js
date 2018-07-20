@@ -1,5 +1,12 @@
 'use strict';
 (function () {
+  var DEFAULT_MAIN_PIN_X = 600;
+  var DEFAULT_MAIN_PIN_Y = 375;
+
+  var Pin = {
+    WIDTH: 65,
+    HEIGHT: 65,
+  };
 
   var DragLimit = {
     X: {
@@ -46,15 +53,15 @@
   var onActivateMouseup = function () {
     map.classList.remove('map--faded');
     window.backend.load(onLoadSuccess, onLoadError);
-    window.form.onActivateform();
+    window.form.activate();
   };
 
   var deactivateMouseup = function () {
     map.classList.add('map--faded');
     removePins();
     removeMapCard();
-    getMapPinCoords();
-    window.filter.deactivateFiltration();
+    mainPin.style.top = DEFAULT_MAIN_PIN_Y - Pin.HEIGHT / 2 + 'px';
+    mainPin.style.left = DEFAULT_MAIN_PIN_X - Pin.WIDTH / 2 + 'px';
     activePage = false;
   };
 
@@ -109,7 +116,7 @@
 
     if (!activePage) {
       onActivateMouseup();
-      window.form.onActivateform();
+      window.form.activate();
       activePage = true;
     }
     document.addEventListener('mousemove', onMouseMove);
@@ -120,7 +127,6 @@
     getMapPinCoords: getMapPinCoords,
     removePins: removePins,
     removeMapCard: removeMapCard,
-    deactivateMouseup: deactivateMouseup
-
+    deactivate: deactivateMouseup
   };
 })();
