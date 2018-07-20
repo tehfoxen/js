@@ -6,7 +6,7 @@
   var renderPin = function (array) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(window.pins.createPin(array[i]));
+      fragment.appendChild(createPin(array[i]));
     }
     pinsContainer.appendChild(fragment);
   };
@@ -26,7 +26,6 @@
   };
 
   window.pins = {
-    createPin: createPin,
     renderPin: renderPin
 
   };

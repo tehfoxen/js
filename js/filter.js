@@ -101,7 +101,7 @@
   };
 
   window.filter = {
-    activate: activateFiltration,
+    activateOn: activateFiltration,
     deactivate: deactivateFiltration
   };
 })();

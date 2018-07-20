@@ -12,12 +12,7 @@
   var map = document.querySelector('.map');
   var filtersContainer = map.querySelector('.map__filters-container');
   var renderCard = function (object) {
-    map.insertBefore(window.card.createCard(object), filtersContainer);
-  };
-  var onCardEscKeydown = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      window.form.closeCard();
-    }
+    map.insertBefore(createCard(object), filtersContainer);
   };
 
   var closeCard = function () {
@@ -26,6 +21,12 @@
       card.remove();
     }
     document.removeEventListener('keydown', onCardEscKeydown);
+  };
+
+  var onCardEscKeydown = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      closeCard();
+    }
   };
 
   var openCard = function (object) {
@@ -83,8 +84,6 @@
   };
 
   window.card = {
-    openCard: openCard,
-    createCard: createCard,
-    renderCard: renderCard
+    openCard: openCard
   };
 })();

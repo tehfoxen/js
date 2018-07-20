@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var shuffleArray = function (arr) {
     var arrCopy = arr.slice(0);
@@ -20,6 +21,10 @@
   };
 
   var renderErrorMessage = function (errorMessage) {
+    var errorMesssageBlock = document.querySelector('.error-message');
+    if (errorMesssageBlock) {
+      errorMesssageBlock.remove();
+    }
     var message = document.createElement('div');
     message.classList.add('error-message');
     message.textContent = errorMessage;
