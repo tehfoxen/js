@@ -54,7 +54,7 @@
     removePins();
     removeMapCard();
     getMapPinCoords();
-    window.filter.deactivateFiltration();
+    window.filter.deactivate();
     activePage = false;
   };
 

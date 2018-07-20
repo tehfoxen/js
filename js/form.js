@@ -22,6 +22,7 @@
   var guests = document.querySelector('#capacity');
   var submit = document.querySelector('.ad-form__submit');
   var success = document.querySelector('.success');
+  var adFormElements = document.querySelectorAll('.ad-form__element');
 
   for (var j = 0; j < fieldsets.length; j++) {
     fieldsets[j].disabled = true;
@@ -33,10 +34,20 @@
       fieldsets[i].disabled = false;
     }
   };
+
   addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
   var fillAddress = function () {
     var addressInputCoords = window.map.getMapPinCoords();
     addressInput.value = addressInputCoords.x + ', ' + addressInputCoords.y;
+  };
+
+  var deactivateForm = function () {
+    form.reset();
+    adFormElements.forEach(function (it) {
+      it.disabled = true;
+    });
+    form.classList.add('ad-form--disabled');
+    fillAddress(window.map.getMapPinCoords());
   };
 
   var setFieldValidity = function (field, isValid, message) {
@@ -112,7 +123,12 @@
 
   submit.addEventListener('click', function () {
     checkPlaceValidity();
+  });
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
     window.filter.deactivate();
+    window.map.deactivate();
     var formData = new FormData(form);
     window.backend.upload(onSubmitSuccess, onSubmitError, formData);
   });
@@ -123,6 +139,8 @@
 
   resetBtn.addEventListener('click', function (evt) {
     evt.preventDefault();
+    deactivateForm();
+    window.map.deactivate();
     window.filter.deactivate();
   });
 
@@ -148,6 +166,7 @@
 
   var onSubmitSuccess = function () {
     showSuccess();
+    deactivateForm();
     window.map.deactivate();
     window.filter.deactivate();
   };
