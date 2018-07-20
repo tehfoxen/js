@@ -127,8 +127,6 @@
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.filter.deactivate();
-    window.map.deactivate();
     var formData = new FormData(form);
     window.backend.upload(onSubmitSuccess, onSubmitError, formData);
   });

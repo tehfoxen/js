@@ -1,5 +1,12 @@
 'use strict';
 (function () {
+  var DEFAULT_MAIN_PIN_X = 600;
+  var DEFAULT_MAIN_PIN_Y = 375;
+
+  var Pins = {
+    WIDTH: 65,
+    HEIGHT: 65,
+  };
 
   var DragLimit = {
     X: {
@@ -53,8 +60,8 @@
     map.classList.add('map--faded');
     removePins();
     removeMapCard();
-    getMapPinCoords();
-    window.filter.deactivate();
+    mainPin.style.top = DEFAULT_MAIN_PIN_Y - Pins.HEIGHT / 2 + 'px';
+    mainPin.style.left = DEFAULT_MAIN_PIN_X - Pins.WIDTH / 2 + 'px';
     activePage = false;
   };
 
