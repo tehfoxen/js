@@ -1,6 +1,13 @@
 'use strict';
 
 (function () {
+  var ESC_KEYCODE = 27;
+  var onEscDown = function (evt, func) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      func();
+    }
+  };
+
   var shuffleArray = function (arr) {
     var arrCopy = arr.slice(0);
     return arrCopy.sort(function () {
@@ -37,5 +44,6 @@
     sliceArrayRandom: sliceArrayRandom,
     shuffleArray: shuffleArray,
     renderErrorMessage: renderErrorMessage,
+    onEscDown: onEscDown
   };
 })();

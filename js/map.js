@@ -119,6 +119,7 @@
   window.map = {
     getMapPinCoords: getMapPinCoords,
     removePins: removePins,
-    removeMapCard: removeMapCard
+    removeMapCard: removeMapCard,
+    deactivate: deactivateMouseup
   };
 })();
