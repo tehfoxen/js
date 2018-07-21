@@ -2,7 +2,7 @@
 
 (function () {
   var ESC_KEYCODE = 27;
-  var onEscDown = function (evt, func) {
+  var isEscDown = function (evt, func) {
     if (evt.keyCode === ESC_KEYCODE) {
       func();
     }
@@ -44,6 +44,6 @@
     sliceArrayRandom: sliceArrayRandom,
     shuffleArray: shuffleArray,
     renderErrorMessage: renderErrorMessage,
-    onEscDown: onEscDown
+    keyCode: isEscDown
   };
 })();

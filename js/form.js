@@ -2,15 +2,12 @@
 
 (function () {
 
-  var BuildingPrices = {
+  var BuildingPrice = {
     'palace': 10000,
     'house': 5000,
     'flat': 1000,
     'bungalo': 0
   };
-  var MAIN_PIN_DEFAULT_X = 600;
-  var MAIN_PIN_DEFAULT_Y = 380;
-
   var form = document.querySelector('.ad-form');
   var title = form.querySelector('#title');
   var type = form.querySelector('#type');
@@ -34,6 +31,8 @@
       fieldsets[i].disabled = false;
     }
   };
+  var MAIN_PIN_DEFAULT_X = 600;
+  var MAIN_PIN_DEFAULT_Y = 380;
 
   addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
   var fillAddress = function () {
@@ -43,8 +42,8 @@
 
   var deactivateForm = function () {
     form.reset();
-    adFormElements.forEach(function (it) {
-      it.disabled = true;
+    adFormElements.forEach(function (item) {
+      item.disabled = true;
     });
     form.classList.add('ad-form--disabled');
     fillAddress(window.map.getMapPinCoords());
@@ -81,7 +80,7 @@
     }
   });
   type.addEventListener('change', function () {
-    var typeValue = BuildingPrices[type.value];
+    var typeValue = BuildingPrice[type.value];
     price.min = typeValue;
     price.placeholder = typeValue;
   });
@@ -106,11 +105,9 @@
 
   var checkPlaceValidity = function () {
     var roomGuests = guestsByRooms[rooms.value];
-    if (roomGuests.indexOf(+guests.value) === -1) {
-      guests.setCustomValidity('Количество гостей не влезут в выбранную комнату');
-    } else {
-      guests.setCustomValidity('');
-    }
+    var message = roomGuests.indexOf(+guests.value) === -1 ? 'Количество гостей не влезут в выбранную комнату' : '';
+    guests.setCustomValidity('Количество гостей не влезут в выбранную комнату');
+    guests.setCustomValidity(message);
   };
 
   rooms.addEventListener('change', function (evt) {
@@ -137,13 +134,14 @@
 
   resetBtn.addEventListener('click', function (evt) {
     evt.preventDefault();
+    form.reset();
     deactivateForm();
     window.map.deactivate();
     window.filter.deactivate();
   });
 
   var onSuccessEscDown = function (evt) {
-    window.utils.onEscDown(evt, closeSuccess);
+    window.utils.keyCode(evt, closeSuccess);
   };
 
   var onSuccessClick = function () {

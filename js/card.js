@@ -13,20 +13,22 @@
     map.insertBefore(createCard(object), filtersContainer);
   };
 
-  var closeCard = function () {
+  var closePopup = function () {
     var card = map.querySelector('.map__card');
     if (card) {
       card.remove();
+      window.pins.deactivate();
     }
+
     document.removeEventListener('keydown', onCardEscKeydown);
   };
 
   var onCardEscKeydown = function (evt) {
-    window.utils.onEscDown(evt, closeCard);
+    window.utils.keyCode(evt, closePopup);
   };
 
-  var openCard = function (object) {
-    closeCard();
+  var openPopup = function (object) {
+    closePopup();
     renderCard(object);
     document.addEventListener('keydown', onCardEscKeydown);
   };
@@ -73,14 +75,14 @@
     }
 
     card.querySelector('.popup__close').addEventListener('click', function () {
-      closeCard();
+      closePopup();
     });
 
     return card;
   };
 
   window.card = {
-    openCard: openCard,
+    openPopup: openPopup,
     onCardEscKeydown: onCardEscKeydown
   };
 })();

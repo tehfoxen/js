@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var PINS_LIMIT = 9;
+  var PINS_LIMIT = 5;
 
   var PriceFilter = {
     LOW: {
@@ -28,28 +28,28 @@
   var data = [];
   var filteredData = [];
 
-  var filtrationItem = function (it, item, key) {
+  var filterItem = function (it, item, key) {
     return it.value === 'any' ? true : it.value === item[key].toString();
   };
 
-  var filtrationByType = function (item) {
-    return filtrationItem(typeSelect, item.offer, 'type');
+  var filterByType = function (item) {
+    return filterItem(typeSelect, item.offer, 'type');
   };
 
-  var filtrationByPrice = function (item) {
-    var filteringPrice = PriceFilter[priceSelect.value.toUpperCase()];
-    return filteringPrice ? item.offer.price >= filteringPrice.MIN && item.offer.price <= filteringPrice.MAX : true;
+  var filterByPrice = function (item) {
+    var filteredPrice = PriceFilter[priceSelect.value.toUpperCase()];
+    return filteredPrice ? item.offer.price >= filteredPrice.MIN && item.offer.price <= filteredPrice.MAX : true;
   };
 
-  var filtrationByRooms = function (item) {
-    return filtrationItem(roomsSelect, item.offer, 'rooms');
+  var filterByRooms = function (item) {
+    return filterItem(roomsSelect, item.offer, 'rooms');
   };
 
-  var filtrationByGuests = function (item) {
-    return filtrationItem(guestsSelect, item.offer, 'guests');
+  var filterByGuests = function (item) {
+    return filterItem(guestsSelect, item.offer, 'guests');
   };
 
-  var filtrationByFeatures = function (item) {
+  var filterByFeatures = function (item) {
     var checkedFeaturesItems = featuresFieldset.querySelectorAll('input:checked');
     return Array.from(checkedFeaturesItems).every(function (element) {
       return item.offer.features.includes(element.value);
@@ -58,7 +58,7 @@
 
   var onFilterChange = window.debounce(function () {
     filteredData = data.slice(0);
-    filteredData = filteredData.filter(filtrationByType).filter(filtrationByPrice).filter(filtrationByRooms).filter(filtrationByGuests).filter(filtrationByFeatures);
+    filteredData = filteredData.filter(filterByType).filter(filterByPrice).filter(filterByRooms).filter(filterByGuests).filter(filterByFeatures);
     window.map.removePins();
     window.map.removeMapCard();
     window.pins.renderPin(filteredData.slice(0, PINS_LIMIT));

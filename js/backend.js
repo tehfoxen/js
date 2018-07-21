@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var LOAD_SUCCESS = 200;
   var ServerUrl = {
     LOAD: 'https://js.dump.academy/keksobooking/data',
     UPLOAD: 'https://js.dump.academy/keksobooking'
@@ -14,7 +15,7 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === LOAD_SUCCESS) {
         onLoad(xhr.response);
       } else {
         onError(MessageText.ERROR_LOAD);

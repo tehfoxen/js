@@ -19,14 +19,23 @@
     pin.style.top = object.location.y + 'px';
 
     pin.addEventListener('click', function () {
-      window.card.openCard(object);
+      window.card.openPopup(object);
+      pin.classList.add('map__pin--active');
     });
 
     return pin;
   };
 
+  var deactivate = function () {
+    var activePin = document.querySelector('.map__pin--active');
+    if (activePin) {
+      activePin.classList.remove('map__pin--active');
+    }
+  };
+
   window.pins = {
-    renderPin: renderPin
+    renderPin: renderPin,
+    deactivate: deactivate
 
   };
 })();
