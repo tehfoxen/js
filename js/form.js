@@ -3,10 +3,10 @@
 (function () {
 
   var BuildingPrice = {
-    'palace': 10000,
-    'house': 5000,
-    'flat': 1000,
-    'bungalo': 0
+    'PALACE': 10000,
+    'HOUSE': 5000,
+    'FLAT': 1000,
+    'BUNGALO': 0
   };
   var form = document.querySelector('.ad-form');
   var title = form.querySelector('#title');
@@ -34,7 +34,7 @@
   var MAIN_PIN_DEFAULT_X = 600;
   var MAIN_PIN_DEFAULT_Y = 380;
 
-  addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
+  var setAddressCoords = function (coords) { addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;}
   var fillAddress = function () {
     var addressInputCoords = window.map.getMapPinCoords();
     addressInput.value = addressInputCoords.x + ', ' + addressInputCoords.y;
@@ -46,7 +46,7 @@
       item.disabled = true;
     });
     form.classList.add('ad-form--disabled');
-    fillAddress(window.map.getMapPinCoords());
+    setAddressCoords();
   };
 
   var setFieldValidity = function (field, isValid, message) {
@@ -79,8 +79,8 @@
       setFieldValidity(price, true);
     }
   });
-  type.addEventListener('change', function () {
-    var typeValue = BuildingPrice[type.value];
+  type.addEventListener('change', function (evt) {
+    var typeValue = BuildingPrice[evt.target.value.toUpperCase()];
     price.min = typeValue;
     price.placeholder = typeValue;
   });
@@ -138,6 +138,19 @@
     deactivateForm();
     window.map.deactivate();
     window.filter.deactivate();
+    window.map.getMapPinCoords();
+  });
+
+   var inputs = form.querySelectorAll('input, select, textarea');
+  inputs.forEach(function (input) {
+    input.addEventListener('invalid', function () {
+      input.classList.add('error');
+    });
+    input.addEventListener('input', function () {
+      if (input.validity.valid) {
+        input.classList.remove('error');
+      }
+    });
   });
 
   var onSuccessEscDown = function (evt) {
