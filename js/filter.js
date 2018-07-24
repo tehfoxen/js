@@ -57,6 +57,9 @@
   };
 
   var onFilterChange = window.debounce(function () {
+    filterPins();
+  });
+  var filterPins = window.debounce(function () {
     filteredData = data.slice(0);
     filteredData = filteredData.filter(filterByType).filter(filterByPrice).filter(filterByRooms).filter(filterByGuests).filter(filterByFeatures);
     window.map.removePins();
@@ -68,7 +71,7 @@
     filterItems.forEach(function (it) {
       it.disabled = false;
     });
-    onFilterChange();
+    filterPins();
     filter.addEventListener('change', onFilterChange);
   };
 
