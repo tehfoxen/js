@@ -34,7 +34,9 @@
   var MAIN_PIN_DEFAULT_X = 600;
   var MAIN_PIN_DEFAULT_Y = 380;
 
-  var setAddressCoords = function (coords) { addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;}
+  var setAddressCoords = function () {
+    addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
+  };
   var fillAddress = function () {
     var addressInputCoords = window.map.getMapPinCoords();
     addressInput.value = addressInputCoords.x + ', ' + addressInputCoords.y;
@@ -141,7 +143,7 @@
     window.map.getMapPinCoords();
   });
 
-   var inputs = form.querySelectorAll('input, select, textarea');
+  var inputs = form.querySelectorAll('input, select, textarea');
   inputs.forEach(function (input) {
     input.addEventListener('invalid', function () {
       input.classList.add('error');
