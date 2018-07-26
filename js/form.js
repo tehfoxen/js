@@ -143,18 +143,6 @@
     window.map.getMapPinCoords();
   });
 
-  var inputs = form.querySelectorAll('input, select, textarea');
-  inputs.forEach(function (input) {
-    input.addEventListener('invalid', function () {
-      input.classList.add('error');
-    });
-    input.addEventListener('input', function () {
-      if (input.validity.valid) {
-        input.classList.remove('error');
-      }
-    });
-  });
-
   var onSuccessEscDown = function (evt) {
     window.utils.keyCode(evt, closeSuccess);
   };
