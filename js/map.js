@@ -18,6 +18,8 @@
       MAX: 630
     }
   };
+
+
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
   var activePage = false;
@@ -42,8 +44,12 @@
       mapCard.remove();
     }
   };
+
+  var data = [];
   var onLoadSuccess = function (object) {
-    window.filter.activateOn(object);
+    data = object;
+    window.pins.renderPin(object);
+    window.filter.activateOn();
   };
 
   var onLoadError = function (errorMessage) {
@@ -127,6 +133,7 @@
     getMapPinCoords: getMapPinCoords,
     removePins: removePins,
     removeMapCard: removeMapCard,
-    deactivate: deactivateMouseup
+    deactivate: deactivateMouseup,
+    data: data
   };
 })();

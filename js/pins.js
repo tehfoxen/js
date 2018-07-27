@@ -5,7 +5,7 @@
   var template = document.querySelector('template').content;
   var renderPin = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
+    for (var i = 0; i < Math.min(array.length, 5); i++) {
       fragment.appendChild(createPin(array[i]));
     }
     pinsContainer.appendChild(fragment);
