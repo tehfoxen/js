@@ -31,6 +31,7 @@
     };
     return mapPinPosition;
   };
+
   var removePins = function () {
     var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var j = 0; j < mapPinsItems.length; j++) {
@@ -45,9 +46,8 @@
     }
   };
 
-  var data = [];
   var onLoadSuccess = function (object) {
-    data = object;
+    window.map.data = object;
     window.pins.renderPin(object);
     window.filter.activateOn();
   };
@@ -134,6 +134,7 @@
     removePins: removePins,
     removeMapCard: removeMapCard,
     deactivate: deactivateMouseup,
-    data: data
+    clearPins: removePins,
+    data: []
   };
 })();

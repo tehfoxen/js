@@ -68,6 +68,7 @@
 
   var onFilterChange = window.debounce(function () {
     var filtredData = filterData(window.map.data);
+    window.map.clearPins();
     window.pins.renderPin(filtredData);
   });
 
