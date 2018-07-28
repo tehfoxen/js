@@ -12,7 +12,7 @@
   var priceSelect = mapFilter.querySelector('#housing-price');
   var roomsSelect = mapFilter.querySelector('#housing-rooms');
   var guestsSelect = mapFilter.querySelector('#housing-guests');
-  var featuresFieldset = mapFilter.querySelector('#housing-features');
+  var featuresFieldset = mapFilter.querySelectorAll('input[name="features"]');
   var filterElements = mapFilter.querySelectorAll('select');
 
   var filterByPrice = function (price) {
