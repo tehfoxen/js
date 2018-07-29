@@ -141,7 +141,6 @@
     deactivateForm();
     window.map.deactivate();
     window.filter.deactivate();
-    window.map.getMapPinCoords();
   });
 
   var onSuccessEscDown = function (evt) {
