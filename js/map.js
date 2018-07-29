@@ -24,14 +24,6 @@
   var mainPin = document.querySelector('.map__pin--main');
   var activePage = false;
 
-  var getMapPinCoords = function () {
-    var mapPinPosition = {
-      x: mainPin.offsetLeft + Math.floor(mainPin.offsetWidth / 2),
-      y: mainPin.offsetTop + mainPin.offsetHeight
-    };
-    return mapPinPosition;
-  };
-
   var removePins = function () {
     var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var j = 0; j < mapPinsItems.length; j++) {
@@ -130,7 +122,8 @@
   });
 
   window.map = {
-    getMapPinCoords: getMapPinCoords,
+    DEFAULT_MAIN_PIN_X: DEFAULT_MAIN_PIN_X,
+    DEFAULT_MAIN_PIN_Y: DEFAULT_MAIN_PIN_Y,
     removePins: removePins,
     removeMapCard: removeMapCard,
     deactivate: deactivateMouseup,

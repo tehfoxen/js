@@ -31,12 +31,12 @@
       fieldsets[i].disabled = false;
     }
   };
-  var MAIN_PIN_DEFAULT_X = 600;
-  var MAIN_PIN_DEFAULT_Y = 380;
 
-  var setAddressCoords = function () {
-    addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
+  var setDefaultAddressCoords = function () {
+    addressInput.value = window.map.DEFAULT_MAIN_PIN_X + ', ' + window.map.DEFAULT_MAIN_PIN_Y;
   };
+  setDefaultAddressCoords();
+
   var fillAddress = function (x, y) {
     addressInput.value = x + ', ' + y;
   };
@@ -47,7 +47,7 @@
       item.disabled = true;
     });
     form.classList.add('ad-form--disabled');
-    setAddressCoords();
+    setDefaultAddressCoords();
   };
 
   var setFieldValidity = function (field, isValid, message) {
