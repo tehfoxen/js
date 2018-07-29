@@ -88,10 +88,10 @@
         y: mainPin.offsetTop - shift.y
       };
       var Border = {
-        TOP: DragLimit.Y.MIN - mainPin.offsetHeight,
-        BOTTOM: DragLimit.Y.MAX - mainPin.offsetHeight,
+        TOP: DragLimit.Y.MIN - Pin.HEIGHT - Pin.TAIL,
+        BOTTOM: DragLimit.Y.MAX - Pin.HEIGHT - Pin.TAIL,
         LEFT: DragLimit.X.MIN,
-        RIGHT: DragLimit.X.MAX - mainPin.offsetWidth
+        RIGHT: DragLimit.X.MAX - Pin.WIDTH
       };
 
       if (mapPinPosition.x >= Border.LEFT && mapPinPosition.x <= Border.RIGHT) {
