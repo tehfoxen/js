@@ -41,7 +41,7 @@
 
   var onLoadSuccess = function (object) {
     window.map.data = object;
-    window.pins.renderPin(object);
+    window.pins.render(object);
     window.filter.activateOn();
   };
 

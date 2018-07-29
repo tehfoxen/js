@@ -70,7 +70,7 @@
     var filtredData = filterData(window.map.data);
     window.map.clearPins();
     window.map.resetCard();
-    window.pins.renderPin(filtredData);
+    window.pins.render(filtredData);
   });
 
   var activateFilter = function () {

@@ -82,7 +82,7 @@
   };
 
   window.card = {
-    openPopup: openCard,
+    open: openCard,
     onCardEscKeydown: onCardEscKeydown
   };
 })();

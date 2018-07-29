@@ -108,7 +108,6 @@
   var checkPlaceValidity = function () {
     var roomGuests = guestsByRooms[rooms.value];
     var message = roomGuests.indexOf(+guests.value) === -1 ? 'Количество гостей не влезут в выбранную комнату' : '';
-    guests.setCustomValidity('Количество гостей не влезут в выбранную комнату');
     guests.setCustomValidity(message);
   };
 
@@ -143,7 +142,7 @@
   });
 
   var onSuccessEscDown = function (evt) {
-    window.utils.keyCode(evt, closeSuccess);
+    window.utils.isEscDown(evt.keyCode, closeSuccess);
   };
 
   var onSuccessClick = function () {

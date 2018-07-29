@@ -2,9 +2,9 @@
 
 (function () {
   var ESC_KEYCODE = 27;
-  var isEscDown = function (evt, func) {
+  var isEscDown = function (evt, callback) {
     if (evt.keyCode === ESC_KEYCODE) {
-      func();
+      callback();
     }
   };
 
@@ -26,6 +26,6 @@
   window.utils = {
     getRandomIntegerFromInterval: getRandomIntegerFromInterval,
     renderErrorMessage: renderErrorMessage,
-    keyCode: isEscDown
+    isEscDown: isEscDown
   };
 })();
