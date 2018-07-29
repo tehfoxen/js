@@ -19,7 +19,7 @@
     pin.style.top = object.location.y + 'px';
 
     pin.addEventListener('click', function () {
-      window.card.open(object);
+      window.openCard(object);
       pin.classList.add('map__pin--active');
     });
 

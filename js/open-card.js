@@ -24,7 +24,7 @@
   };
 
   var onCardEscKeydown = function (evt) {
-    window.utils.keyCode(evt, closeCard);
+    window.utils.isEscDown(evt.keyCode, closeCard);
   };
 
   var openCard = function (object) {
@@ -81,8 +81,5 @@
     return card;
   };
 
-  window.card = {
-    open: openCard,
-    onCardEscKeydown: onCardEscKeydown
-  };
+  window.openCard = openCard;
 })();

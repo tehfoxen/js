@@ -2,8 +2,8 @@
 
 (function () {
   var ESC_KEYCODE = 27;
-  var isEscDown = function (evt, callback) {
-    if (evt.keyCode === ESC_KEYCODE) {
+  var isEscDown = function (keyCode, callback) {
+    if (keyCode === ESC_KEYCODE) {
       callback();
     }
   };
