@@ -6,9 +6,10 @@
   var Pin = {
     WIDTH: 65,
     HEIGHT: 65,
+    TAIL: 22
   };
 
-  var DragLimit = {
+  var addressCoords = {
     X: {
       MIN: 0,
       MAX: 1200
@@ -18,7 +19,6 @@
       MAX: 630
     }
   };
-
 
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
@@ -96,22 +96,22 @@
       };
       var PinSize = document.querySelector('.map__pin').offsetWidth;
       var Border = {
-        TOP: DragLimit.Y.MIN - mainPin.offsetHeight,
-        BOTTOM: DragLimit.Y.MAX - mainPin.offsetHeight,
-        LEFT: DragLimit.X.MIN,
-        RIGHT: DragLimit.X.MAX - mainPin.offsetWidth
+        TOP: addressCoords.Y.MIN - mainPin.offsetHeight,
+        BOTTOM: addressCoords.Y.MAX - mainPin.offsetHeight,
+        LEFT: addressCoords.X.MIN,
+        RIGHT: addressCoords.X.MAX - mainPin.offsetWidth
       };
 
       if (mapPinPosition.x >= Border.LEFT && mapPinPosition.x <= Border.RIGHT) {
         mainPin.style.left = mapPinPosition.x + 'px';
-        DragLimit.x = mapPinPosition.x + Math.ceil(PinSize.WIDTH / 2);
+        addressCoords.x = mapPinPosition.x + Math.ceil(PinSize.WIDTH / 2);
       }
 
       if (mapPinPosition.y >= Border.TOP && mapPinPosition.y <= Border.BOTTOM) {
         mainPin.style.top = mapPinPosition.y + 'px';
-        DragLimit.x = mapPinPosition.x + Math.ceil(PinSize.WIDTH / 2);
+        addressCoords.y = mapPinPosition.x + Pin.HEIGHT + Pin.TAIL;
       }
-      window.form.fillAddress(DragLimit.x, DragLimit.y);
+      window.form.fillAddress(addressCoords.x, addressCoords.y);
     };
 
     var onMouseUp = function (upEvt) {

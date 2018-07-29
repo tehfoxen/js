@@ -37,9 +37,8 @@
   var setAddressCoords = function () {
     addressInput.value = MAIN_PIN_DEFAULT_X + ', ' + MAIN_PIN_DEFAULT_Y;
   };
-  var fillAddress = function () {
-    var addressInputCoords = window.map.getMapPinCoords();
-    addressInput.value = addressInputCoords.x + ', ' + addressInputCoords.y;
+  var fillAddress = function (x, y) {
+    addressInput.value = x + ', ' + y;
   };
 
   var deactivateForm = function () {
