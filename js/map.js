@@ -9,7 +9,7 @@
     TAIL: 22
   };
 
-  var addressCoords = {
+  var DragLimit = {
     X: {
       MIN: 0,
       MAX: 1200
@@ -19,6 +19,7 @@
       MAX: 630
     }
   };
+  var addressCoords = {};
 
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
@@ -88,10 +89,10 @@
       };
       var PinSize = document.querySelector('.map__pin').offsetWidth;
       var Border = {
-        TOP: addressCoords.Y.MIN - mainPin.offsetHeight,
-        BOTTOM: addressCoords.Y.MAX - mainPin.offsetHeight,
-        LEFT: addressCoords.X.MIN,
-        RIGHT: addressCoords.X.MAX - mainPin.offsetWidth
+        TOP: DragLimit.Y.MIN - mainPin.offsetHeight,
+        BOTTOM: DragLimit.addressCoords.Y.MAX - mainPin.offsetHeight,
+        LEFT: DragLimit.X.MIN,
+        RIGHT: DragLimit.X.MAX - mainPin.offsetWidth
       };
 
       if (mapPinPosition.x >= Border.LEFT && mapPinPosition.x <= Border.RIGHT) {
