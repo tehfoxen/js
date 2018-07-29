@@ -135,6 +135,7 @@
     removeMapCard: removeMapCard,
     deactivate: deactivateMouseup,
     clearPins: removePins,
+    resetCard: removeMapCard,
     data: []
   };
 })();

@@ -69,6 +69,7 @@
   var onFilterChange = window.debounce(function () {
     var filtredData = filterData(window.map.data);
     window.map.clearPins();
+    window.map.resetCard();
     window.pins.renderPin(filtredData);
   });
 

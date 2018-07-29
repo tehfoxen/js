@@ -82,6 +82,7 @@
     }
   });
   type.addEventListener('change', function (evt) {
+    setFieldValidity(price, true);
     var typeValue = BuildingPrice[evt.target.value.toUpperCase()];
     price.min = typeValue;
     price.placeholder = typeValue;
