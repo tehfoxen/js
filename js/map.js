@@ -87,7 +87,6 @@
         x: mainPin.offsetLeft - shift.x,
         y: mainPin.offsetTop - shift.y
       };
-      var PinSize = document.querySelector('.map__pin').offsetWidth;
       var Border = {
         TOP: DragLimit.Y.MIN - mainPin.offsetHeight,
         BOTTOM: DragLimit.Y.MAX - mainPin.offsetHeight,
