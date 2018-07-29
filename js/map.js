@@ -90,14 +90,14 @@
       var PinSize = document.querySelector('.map__pin').offsetWidth;
       var Border = {
         TOP: DragLimit.Y.MIN - mainPin.offsetHeight,
-        BOTTOM: DragLimit.addressCoords.Y.MAX - mainPin.offsetHeight,
+        BOTTOM: DragLimit.Y.MAX - mainPin.offsetHeight,
         LEFT: DragLimit.X.MIN,
         RIGHT: DragLimit.X.MAX - mainPin.offsetWidth
       };
 
       if (mapPinPosition.x >= Border.LEFT && mapPinPosition.x <= Border.RIGHT) {
         mainPin.style.left = mapPinPosition.x + 'px';
-        addressCoords.x = mapPinPosition.x + Math.ceil(PinSize.WIDTH / 2);
+        addressCoords.x = mapPinPosition.x + Math.ceil(Pin.WIDTH / 2);
       }
 
       if (mapPinPosition.y >= Border.TOP && mapPinPosition.y <= Border.BOTTOM) {
