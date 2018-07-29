@@ -101,7 +101,7 @@
 
       if (mapPinPosition.y >= Border.TOP && mapPinPosition.y <= Border.BOTTOM) {
         mainPin.style.top = mapPinPosition.y + 'px';
-        addressCoords.y = mapPinPosition.x + Pin.HEIGHT + Pin.TAIL;
+        addressCoords.y = mapPinPosition.y + Pin.HEIGHT + Pin.TAIL;
       }
       window.form.fillAddress(addressCoords.x, addressCoords.y);
     };
