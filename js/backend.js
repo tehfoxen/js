@@ -2,8 +2,8 @@
 
 (function () {
   var ServerUrl = {
-    LOAD: 'https://js.dump.academy/keksobooking/data',
-    UPLOAD: 'https://js.dump.academy/keksobooking'
+    LOAD: 'https://javascript.pages.academy/keksobooking/data',
+    UPLOAD: 'https://javascript.pages.academy/keksobooking'
   };
   var MessageText = {
     ERROR_LOAD: 'Произошла неизвестная ошибка. Пожалуйста, обновите страницу.',
